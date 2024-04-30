@@ -5,7 +5,7 @@ on:
     types: [opened, ready_for_review]
 
 env:
-  REVIEWERS: "blendthink"
+  REVIEWERS: 'blendthink'
 
 jobs:
   assign:
@@ -16,4 +16,4 @@ jobs:
         with:
           assignees: ${{ github.actor }}
           reviewers: ${{ env.REVIEWERS }}
-          ready-comment: "Ready for review :rocket:"
+          ready-comment: 'Ready for review :rocket:'
