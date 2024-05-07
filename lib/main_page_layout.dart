@@ -25,7 +25,19 @@ class CenterParts extends StatelessWidget {
   const CenterParts({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const FractionallySizedBox(
+      widthFactor: 0.5,
+      child: Column(
+        mainAxisSize: MainAxisSize.min,
+        mainAxisAlignment: MainAxisAlignment.center,
+        children: <Widget>[
+          AspectRatio(
+            aspectRatio: 1,
+            child: Placeholder(),
+          ),
+        ],
+      ),
+    );
   }
 }
 
