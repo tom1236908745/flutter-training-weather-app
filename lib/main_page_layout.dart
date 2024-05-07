@@ -120,6 +120,43 @@ class TextButtonLayout extends StatelessWidget {
   const TextButtonLayout({super.key});
   @override
   Widget build(BuildContext context) {
-    return Container();
+    return const Flexible(
+      child: Column(
+        children: <Widget>[
+          Padding(
+            padding: EdgeInsets.only(top: 80),
+          ),
+          Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            children: <Widget>[
+              OperatingTextButton(textWord: 'Close'),
+              OperatingTextButton(textWord: 'Reload'),
+            ],
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+// テキストボタンの共通箇所用ウィジェット
+class OperatingTextButton extends StatelessWidget {
+  const OperatingTextButton({
+    required this.textWord,
+    super.key,
+  });
+  final String textWord;
+  @override
+  Widget build(BuildContext context) {
+    return TextButton(
+      onPressed: null,
+      child: Text(textWord, style: const TextStyle(color: Colors.blue)),
+    );
+  }
+
+  @override
+  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
+    super.debugFillProperties(properties);
+    properties.add(StringProperty('textWord', textWord));
   }
 }
