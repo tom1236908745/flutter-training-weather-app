@@ -8,13 +8,16 @@ class MainPageLayout extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return const Scaffold(
-      body: SizedBox.expand(
-        child: Column(
-          children: <Widget>[
-            Spacer(),
-            CenterParts(),
-            TextButtonLayout(),
-          ],
+      body: Center(
+        child: FractionallySizedBox(
+          widthFactor: 0.5,
+          child: Column(
+            children: <Widget>[
+              Spacer(),
+              CenterParts(),
+              TextButtonLayout(),
+            ],
+          ),
         ),
       ),
     );
@@ -26,29 +29,24 @@ class CenterParts extends StatelessWidget {
   const CenterParts({super.key});
   @override
   Widget build(BuildContext context) {
-    return const FractionallySizedBox(
-      widthFactor: 0.5,
-      child: Column(
-        mainAxisSize: MainAxisSize.min,
-        mainAxisAlignment: MainAxisAlignment.center,
-        children: <Widget>[
-          AspectRatio(
-            aspectRatio: 1,
-            child: Placeholder(),
-          ),
-          Row(
-            mainAxisAlignment: MainAxisAlignment.center,
-            children: <Widget>[
-              TemperatureText(
-                textColor: Colors.red,
-              ),
-              TemperatureText(
-                textColor: Colors.blue,
-              ),
-            ],
-          ),
-        ],
-      ),
+    return const Column(
+      children: <Widget>[
+        AspectRatio(
+          aspectRatio: 1,
+          child: Placeholder(),
+        ),
+        Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          children: <Widget>[
+            TemperatureText(
+              textColor: Colors.red,
+            ),
+            TemperatureText(
+              textColor: Colors.blue,
+            ),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -120,14 +118,13 @@ class TextButtonLayout extends StatelessWidget {
   const TextButtonLayout({super.key});
   @override
   Widget build(BuildContext context) {
-    return const Flexible(
+    return const Expanded(
       child: Column(
         children: <Widget>[
           Padding(
             padding: EdgeInsets.only(top: 80),
           ),
           Row(
-            mainAxisAlignment: MainAxisAlignment.center,
             children: <Widget>[
               OperatingTextButton(textWord: 'Close'),
               OperatingTextButton(textWord: 'Reload'),
@@ -148,9 +145,11 @@ class OperatingTextButton extends StatelessWidget {
   final String textWord;
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: null,
-      child: Text(textWord, style: const TextStyle(color: Colors.blue)),
+    return Expanded(
+      child: TextButton(
+        onPressed: null,
+        child: Text(textWord, style: const TextStyle(color: Colors.blue)),
+      ),
     );
   }
 
