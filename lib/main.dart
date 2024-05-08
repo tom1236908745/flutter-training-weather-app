@@ -1,7 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main_page_layout.dart';
 
-void main() => runApp(const MainApp());
+void main() {
+  runApp(const MainApp());
+}
 
 class MainApp extends StatelessWidget {
   const MainApp({super.key});
