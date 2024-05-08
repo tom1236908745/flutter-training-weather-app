@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_training/gen/assets.gen.dart';
 
 /// 大枠のウィジェット
 class MainPageLayout extends StatelessWidget {
@@ -37,13 +38,13 @@ class _CenterPart extends StatelessWidget {
   const _CenterPart();
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: Placeholder(),
+          child: Assets.images.cloudy.svg(),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Row(
             children: <Widget>[
