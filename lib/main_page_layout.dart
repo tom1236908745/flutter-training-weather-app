@@ -14,8 +14,8 @@ class MainPageLayout extends StatelessWidget {
           child: Column(
             children: <Widget>[
               Spacer(),
-              CenterParts(),
-              TextButtonLayout(),
+              _CenterPart(),
+              _TextButtons(),
             ],
           ),
         ),
@@ -25,8 +25,8 @@ class MainPageLayout extends StatelessWidget {
 }
 
 // 中央部分のウィジェット
-class CenterParts extends StatelessWidget {
-  const CenterParts({super.key});
+class _CenterPart extends StatelessWidget {
+  const _CenterPart();
   @override
   Widget build(BuildContext context) {
     return const Column(
@@ -37,10 +37,10 @@ class CenterParts extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            TemperatureText(
+            _TemperatureText(
               textColor: Colors.red,
             ),
-            TemperatureText(
+            _TemperatureText(
               textColor: Colors.blue,
             ),
           ],
@@ -51,10 +51,9 @@ class CenterParts extends StatelessWidget {
 }
 
 // 温度の表示用ウィジェット
-class TemperatureText extends StatelessWidget {
-  const TemperatureText({
+class _TemperatureText extends StatelessWidget {
+  const _TemperatureText({
     required this.textColor,
-    super.key,
   });
   final Color textColor;
 
@@ -66,9 +65,9 @@ class TemperatureText extends StatelessWidget {
         child: SizedBox(
           width: 50,
           child: Center(
-            child: FormattedText(
-              textWord: '** ℃',
-              textTheme: Theme.of(context)
+            child: Text(
+              '** ℃',
+              style: Theme.of(context)
                   .textTheme
                   .labelLarge
                   ?.copyWith(color: textColor),
@@ -86,35 +85,9 @@ class TemperatureText extends StatelessWidget {
   }
 }
 
-// 文字の表示用ウィジェット
-class FormattedText extends StatelessWidget {
-  const FormattedText({
-    required this.textWord,
-    required this.textTheme,
-    super.key,
-  });
-  final String textWord;
-  final TextStyle? textTheme;
-
-  @override
-  Widget build(BuildContext context) {
-    return Text(
-      textWord,
-      style: textTheme,
-    );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('textWord', textWord));
-    properties.add(DiagnosticsProperty<TextStyle?>('textTheme', textTheme));
-  }
-}
-
 // 並列に並ぶテキストボタンの箇所ウィジェット
-class TextButtonLayout extends StatelessWidget {
-  const TextButtonLayout({super.key});
+class _TextButtons extends StatelessWidget {
+  const _TextButtons();
   @override
   Widget build(BuildContext context) {
     return const Expanded(
@@ -125,8 +98,8 @@ class TextButtonLayout extends StatelessWidget {
           ),
           Row(
             children: <Widget>[
-              OperatingTextButton(textWord: 'Close'),
-              OperatingTextButton(textWord: 'Reload'),
+              _OperatingTextButton(textWord: 'Close'),
+              _OperatingTextButton(textWord: 'Reload'),
             ],
           ),
         ],
@@ -136,10 +109,9 @@ class TextButtonLayout extends StatelessWidget {
 }
 
 // テキストボタンの共通箇所用ウィジェット
-class OperatingTextButton extends StatelessWidget {
-  const OperatingTextButton({
+class _OperatingTextButton extends StatelessWidget {
+  const _OperatingTextButton({
     required this.textWord,
-    super.key,
   });
   final String textWord;
   @override
