@@ -36,7 +36,6 @@ class CenterParts extends StatelessWidget {
           child: Placeholder(),
         ),
         Row(
-          mainAxisAlignment: MainAxisAlignment.center,
           children: <Widget>[
             TemperatureText(
               textColor: Colors.red,
