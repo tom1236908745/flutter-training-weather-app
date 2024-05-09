@@ -15,7 +15,9 @@ class MainPageLayout extends StatelessWidget {
             children: <Widget>[
               Spacer(),
               _CenterPart(),
-              _TextButtons(),
+              Expanded(
+                child: _TextButtons(),
+              ),
             ],
           ),
         ),
@@ -108,10 +110,11 @@ class _OperatingTextButton extends StatelessWidget {
   final String _textWord;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
+    return TextButton(
         onPressed: null,
-        child: Text(textWord, style: const TextStyle(color: Colors.blue)),
+      child: Text(
+        _textWord,
+        style: const TextStyle(color: Colors.blue),
       ),
     );
   }
