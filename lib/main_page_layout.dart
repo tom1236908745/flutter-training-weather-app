@@ -1,7 +1,7 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
-// 大枠のウィジェット
+/// 大枠のウィジェット
 class MainPageLayout extends StatelessWidget {
   const MainPageLayout({super.key});
 
@@ -26,7 +26,7 @@ class MainPageLayout extends StatelessWidget {
   }
 }
 
-// 中央部分のウィジェット
+/// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart();
   @override
@@ -52,7 +52,7 @@ class _CenterPart extends StatelessWidget {
   }
 }
 
-// 温度の表示用ウィジェット
+/// 温度の表示用ウィジェット
 class _TemperatureText extends StatelessWidget {
   const _TemperatureText({
     required Color textColor,
@@ -81,7 +81,7 @@ class _TemperatureText extends StatelessWidget {
   }
 }
 
-// 並列に並ぶテキストボタンの箇所ウィジェット
+/// 並列に並ぶテキストボタンの箇所ウィジェット
 class _TextButtons extends StatelessWidget {
   const _TextButtons();
   @override
@@ -104,14 +104,14 @@ class _TextButtons extends StatelessWidget {
   }
 }
 
-// テキストボタンの共通箇所用ウィジェット
+/// テキストボタンの共通箇所用ウィジェット
 class _OperatingTextButton extends StatelessWidget {
   const _OperatingTextButton({required String textWord}) : _textWord = textWord;
   final String _textWord;
   @override
   Widget build(BuildContext context) {
     return TextButton(
-        onPressed: null,
+      onPressed: null,
       child: Text(
         _textWord,
         style: const TextStyle(color: Colors.blue),
