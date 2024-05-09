@@ -75,7 +75,6 @@ class _TemperatureText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      width: 50,
       child: Center(
         child: Text(
           '** ℃',
