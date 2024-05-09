@@ -75,14 +75,11 @@ class _TemperatureText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      child: Center(
-        child: Text(
-          '** ℃',
-          style: Theme.of(context)
-              .textTheme
-              .labelLarge
-              ?.copyWith(color: _textColor),
-        ),
+      child: Text(
+        '** ℃',
+        textAlign: TextAlign.center,
+        style:
+            Theme.of(context).textTheme.labelLarge?.copyWith(color: _textColor),
       ),
     );
   }
