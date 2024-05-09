@@ -113,7 +113,6 @@ class _OperatingTextButton extends StatelessWidget {
       onPressed: null,
       child: Text(
         _textWord,
-        style: const TextStyle(color: Colors.blue),
       ),
     );
   }
