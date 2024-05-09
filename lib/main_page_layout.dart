@@ -43,19 +43,22 @@ class _CenterPart extends StatelessWidget {
           aspectRatio: 1,
           child: Placeholder(),
         ),
-        Row(
-          children: <Widget>[
-            Expanded(
-              child: _TemperatureText(
-                textColor: Colors.red,
+        Padding(
+          padding: EdgeInsets.symmetric(vertical: 16),
+          child: Row(
+            children: <Widget>[
+              Expanded(
+                child: _TemperatureText(
+                  textColor: Colors.red,
+                ),
               ),
-            ),
-            Expanded(
-              child: _TemperatureText(
-                textColor: Colors.blue,
+              Expanded(
+                child: _TemperatureText(
+                  textColor: Colors.blue,
+                ),
               ),
-            ),
-          ],
+            ],
+          ),
         ),
       ],
     );
@@ -71,18 +74,15 @@ class _TemperatureText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(vertical: 16),
-      child: SizedBox(
-        width: 50,
-        child: Center(
-          child: Text(
-            '** ℃',
-            style: Theme.of(context)
-                .textTheme
-                .labelLarge
-                ?.copyWith(color: _textColor),
-          ),
+    return SizedBox(
+      width: 50,
+      child: Center(
+        child: Text(
+          '** ℃',
+          style: Theme.of(context)
+              .textTheme
+              .labelLarge
+              ?.copyWith(color: _textColor),
         ),
       ),
     );
