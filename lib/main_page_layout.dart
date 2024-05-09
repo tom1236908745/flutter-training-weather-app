@@ -45,11 +45,15 @@ class _CenterPart extends StatelessWidget {
         ),
         Row(
           children: <Widget>[
-            _TemperatureText(
-              textColor: Colors.red,
+            Expanded(
+              child: _TemperatureText(
+                textColor: Colors.red,
+              ),
             ),
-            _TemperatureText(
-              textColor: Colors.blue,
+            Expanded(
+              child: _TemperatureText(
+                textColor: Colors.blue,
+              ),
             ),
           ],
         ),
@@ -67,19 +71,17 @@ class _TemperatureText extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16),
-        child: SizedBox(
-          width: 50,
-          child: Center(
-            child: Text(
-              '** ℃',
-              style: Theme.of(context)
-                  .textTheme
-                  .labelLarge
-                  ?.copyWith(color: _textColor),
-            ),
+    return Padding(
+      padding: const EdgeInsets.symmetric(vertical: 16),
+      child: SizedBox(
+        width: 50,
+        child: Center(
+          child: Text(
+            '** ℃',
+            style: Theme.of(context)
+                .textTheme
+                .labelLarge
+                ?.copyWith(color: _textColor),
           ),
         ),
       ),
@@ -94,8 +96,8 @@ class _TextButtons extends StatelessWidget {
   Widget build(BuildContext context) {
     return const Row(
       children: <Widget>[
-        _OperatingTextButton(textWord: 'Close'),
-        _OperatingTextButton(textWord: 'Reload'),
+        Expanded(child: _OperatingTextButton(textWord: 'Close')),
+        Expanded(child: _OperatingTextButton(textWord: 'Reload')),
       ],
     );
   }
@@ -107,13 +109,11 @@ class _OperatingTextButton extends StatelessWidget {
   final String _textWord;
   @override
   Widget build(BuildContext context) {
-    return Expanded(
-      child: TextButton(
-        onPressed: null,
-        child: Text(
-          _textWord,
-          style: const TextStyle(color: Colors.blue),
-        ),
+    return TextButton(
+      onPressed: null,
+      child: Text(
+        _textWord,
+        style: const TextStyle(color: Colors.blue),
       ),
     );
   }
