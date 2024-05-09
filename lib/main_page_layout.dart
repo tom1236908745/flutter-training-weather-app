@@ -1,4 +1,3 @@
-import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 
 /// 大枠のウィジェット
@@ -86,20 +85,18 @@ class _TextButtons extends StatelessWidget {
   const _TextButtons();
   @override
   Widget build(BuildContext context) {
-    return const Expanded(
-      child: Column(
-        children: <Widget>[
-          Padding(
-            padding: EdgeInsets.only(top: 80),
-          ),
-          Row(
-            children: <Widget>[
-              _OperatingTextButton(textWord: 'Close'),
-              _OperatingTextButton(textWord: 'Reload'),
-            ],
-          ),
-        ],
-      ),
+    return const Column(
+      children: <Widget>[
+        Padding(
+          padding: EdgeInsets.only(top: 80),
+        ),
+        Row(
+          children: <Widget>[
+            _OperatingTextButton(textWord: 'Close'),
+            _OperatingTextButton(textWord: 'Reload'),
+          ],
+        ),
+      ],
     );
   }
 }
@@ -110,11 +107,13 @@ class _OperatingTextButton extends StatelessWidget {
   final String _textWord;
   @override
   Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: null,
-      child: Text(
-        _textWord,
-        style: const TextStyle(color: Colors.blue),
+    return Expanded(
+      child: TextButton(
+        onPressed: null,
+        child: Text(
+          _textWord,
+          style: const TextStyle(color: Colors.blue),
+        ),
       ),
     );
   }
