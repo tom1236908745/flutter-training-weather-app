@@ -15,7 +15,14 @@ class MainPageLayout extends StatelessWidget {
               Spacer(),
               _CenterPart(),
               Expanded(
-                child: _TextButtons(),
+                child: Column(
+                  children: <Widget>[
+                    SizedBox(
+                      height: 80,
+                    ),
+                    _TextButtons(),
+                  ],
+                ),
               ),
             ],
           ),
@@ -85,17 +92,10 @@ class _TextButtons extends StatelessWidget {
   const _TextButtons();
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return const Row(
       children: <Widget>[
-        Padding(
-          padding: EdgeInsets.only(top: 80),
-        ),
-        Row(
-          children: <Widget>[
-            _OperatingTextButton(textWord: 'Close'),
-            _OperatingTextButton(textWord: 'Reload'),
-          ],
-        ),
+        _OperatingTextButton(textWord: 'Close'),
+        _OperatingTextButton(textWord: 'Reload'),
       ],
     );
   }
