@@ -53,9 +53,9 @@ class _CenterPart extends StatelessWidget {
 // 温度の表示用ウィジェット
 class _TemperatureText extends StatelessWidget {
   const _TemperatureText({
-    required this.textColor,
-  });
-  final Color textColor;
+    required Color textColor,
+  }) : _textColor = textColor;
+  final Color _textColor;
 
   @override
   Widget build(BuildContext context) {
@@ -70,18 +70,12 @@ class _TemperatureText extends StatelessWidget {
               style: Theme.of(context)
                   .textTheme
                   .labelLarge
-                  ?.copyWith(color: textColor),
+                  ?.copyWith(color: _textColor),
             ),
           ),
         ),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(ColorProperty('textColor', textColor));
   }
 }
 
@@ -110,10 +104,8 @@ class _TextButtons extends StatelessWidget {
 
 // テキストボタンの共通箇所用ウィジェット
 class _OperatingTextButton extends StatelessWidget {
-  const _OperatingTextButton({
-    required this.textWord,
-  });
-  final String textWord;
+  const _OperatingTextButton({required String textWord}) : _textWord = textWord;
+  final String _textWord;
   @override
   Widget build(BuildContext context) {
     return Expanded(
@@ -122,11 +114,5 @@ class _OperatingTextButton extends StatelessWidget {
         child: Text(textWord, style: const TextStyle(color: Colors.blue)),
       ),
     );
-  }
-
-  @override
-  void debugFillProperties(DiagnosticPropertiesBuilder properties) {
-    super.debugFillProperties(properties);
-    properties.add(StringProperty('textWord', textWord));
   }
 }
