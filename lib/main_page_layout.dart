@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/constant/Weather_condition.dart';
+import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/view_model/view_model.dart';
 
 /// 大枠のウィジェット
