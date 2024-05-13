@@ -6,9 +6,9 @@ enum WeatherCondition {
   sunny,
   rainy;
 
-  factory WeatherCondition.from(String name) =>
+  factory WeatherCondition.from(String conditionName) =>
       WeatherCondition.values.singleWhere(
-        (element) => element.name == name,
+        (element) => element.name == conditionName,
       );
 }
 
