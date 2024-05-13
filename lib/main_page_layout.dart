@@ -36,7 +36,8 @@ class MainPageLayoutState extends State<MainPageLayout> {
                       height: 80,
                     ),
                     _TextButtons(
-                        updateWeatherCondition: _updateWeatherCondition),
+                      updateWeatherCondition: _updateWeatherCondition,
+                    ),
                   ],
                 ),
               ),
