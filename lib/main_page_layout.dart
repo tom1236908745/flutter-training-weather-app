@@ -13,9 +13,9 @@ class MainPageLayout extends StatefulWidget {
 class MainPageLayoutState extends State<MainPageLayout> {
   String _weatherCondition = '';
 
-  void _updateWeatherCondition(String newWeatherType) {
+  void _updateWeatherCondition(String newWeatherCondition) {
     setState(() {
-      _weatherCondition = newWeatherType;
+      _weatherCondition = newWeatherCondition;
     });
   }
 
