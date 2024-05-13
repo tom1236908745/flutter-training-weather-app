@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_training/constant/Weather_condition.dart';
-import 'package:yumemi_weather/yumemi_weather.dart';
+import 'package:flutter_training/view_model/view_model.dart';
 
 /// 大枠のウィジェット
 class MainPageLayout extends StatefulWidget {
@@ -146,10 +146,14 @@ class _OperatingTextButton extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return TextButton(
-      onPressed: () {
-        final yumemiWeather = YumemiWeather();
-        final weatherConditionName = yumemiWeather.fetchSimpleWeather();
-        _updateWeatherCondition(weatherConditionName);
+      onPressed: () async {
+        String weatherConditionName;
+        try {
+          weatherConditionName = await fetchYumemiWeather();
+          _updateWeatherCondition(weatherConditionName);
+        } on Exception catch (error) {
+          debugPrint('$error');
+        }
       },
       child: Text(
         _textWord,

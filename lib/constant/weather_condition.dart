@@ -9,7 +9,6 @@ enum WeatherCondition {
   factory WeatherCondition.from(String name) =>
       WeatherCondition.values.singleWhere(
         (element) => element.name == name,
-        orElse: () => throw Exception('`$name` is invalid value'),
       );
 }
 
