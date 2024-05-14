@@ -10,19 +10,21 @@ class StartScreen extends StatefulWidget {
 
 class StartScreenState extends State<StartScreen> {
   @override
+  void initState() {
+    final navigatorState = Navigator.of(context);
+    final route = MaterialPageRoute<void>(
+      builder: (context) => const MainPageLayout(),
+    );
+    Future.delayed(const Duration(seconds: 1) * 0.5, () async {
+      await navigatorState.push(route);
+    });
+    super.initState();
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return ColoredBox(
+    return const ColoredBox(
       color: Colors.green,
-      child: TextButton(
-        child: const Text('メイン画面へ'),
-        onPressed: () async {
-          final navigatorState = Navigator.of(context);
-          final route = MaterialPageRoute<void>(
-            builder: (context) => const MainPageLayout(),
-          );
-          await navigatorState.push(route);
-        },
-      ),
     );
   }
 }
