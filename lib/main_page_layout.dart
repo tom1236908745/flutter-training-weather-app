@@ -118,47 +118,30 @@ class _TextButtons extends StatelessWidget {
     return Row(
       children: <Widget>[
         Expanded(
-          child: _OperatingTextButton(
-            textWord: 'Close',
-            updateWeatherCondition: _updateWeatherCondition,
+          child: TextButton(
+            onPressed: () {
+              return;
+            },
+            child: const Text('Close'),
           ),
         ),
         Expanded(
-          child: _OperatingTextButton(
-            textWord: 'Reload',
-            updateWeatherCondition: _updateWeatherCondition,
+          child: TextButton(
+            onPressed: () async {
+              String weatherConditionName;
+              try {
+                weatherConditionName = await fetchYumemiWeather();
+                _updateWeatherCondition(weatherConditionName);
+              } on Exception catch (error) {
+                debugPrint('$error');
+              }
+            },
+            child: const Text(
+              'Reload',
+            ),
           ),
         ),
       ],
-    );
-  }
-}
-
-/// テキストボタンの共通箇所用ウィジェット
-class _OperatingTextButton extends StatelessWidget {
-  const _OperatingTextButton({
-    required String textWord,
-    required void Function(String) updateWeatherCondition,
-  })  : _textWord = textWord,
-        _updateWeatherCondition = updateWeatherCondition;
-  final String _textWord;
-
-  final void Function(String) _updateWeatherCondition;
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: () async {
-        String weatherConditionName;
-        try {
-          weatherConditionName = await fetchYumemiWeather();
-          _updateWeatherCondition(weatherConditionName);
-        } on Exception catch (error) {
-          debugPrint('$error');
-        }
-      },
-      child: Text(
-        _textWord,
-      ),
     );
   }
 }
