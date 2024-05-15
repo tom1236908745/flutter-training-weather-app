@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 
 /// 大枠のウィジェット
@@ -46,6 +48,20 @@ class MainPageLayoutState extends State<MainPageLayout> {
         ),
       ),
     );
+  }
+}
+
+/// 天気情報を持ったEnumに各項目と画像の対応付けを拡張
+extension WeatherTypePath on WeatherCondition {
+  SvgPicture get path {
+    switch (this) {
+      case WeatherCondition.cloudy:
+        return Assets.images.cloudy.svg();
+      case WeatherCondition.sunny:
+        return Assets.images.sunny.svg();
+      case WeatherCondition.rainy:
+        return Assets.images.rainy.svg();
+    }
   }
 }
 
