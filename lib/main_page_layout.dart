@@ -134,9 +134,7 @@ class _TextButtons extends StatelessWidget {
                 debugPrint('$error');
               }
             },
-            child: const Text(
-              'Reload',
-            ),
+            child: const Text('Reload'),
           ),
         ),
       ],
