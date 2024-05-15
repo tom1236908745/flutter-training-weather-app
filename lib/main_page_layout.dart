@@ -119,9 +119,7 @@ class _TextButtons extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: TextButton(
-            onPressed: () {
-              return;
-            },
+            onPressed: () {},
             child: const Text('Close'),
           ),
         ),
