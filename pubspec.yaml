@@ -27,7 +27,7 @@ flutter:
   assets:
     - assets/images/
 
-# flutter_genでsvgを扱うための設定
 flutter_gen:
   integrations:
+    # flutter_genでsvgを扱うための設定
     flutter_svg: true
