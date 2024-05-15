@@ -2,6 +2,6 @@
   "recommendations": [
     "dart-code.dart-code",
     "dart-code.flutter",
-    "esbenp.prettier-vscode",
+    "esbenp.prettier-vscode"
   ]
 }
