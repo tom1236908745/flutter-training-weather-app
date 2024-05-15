@@ -129,10 +129,11 @@ class _TextButtons extends StatelessWidget {
               String weatherConditionName;
               try {
                 weatherConditionName = await fetchYumemiWeather();
-                _updateWeatherCondition(weatherConditionName);
-              } on Exception catch (error) {
-                debugPrint('$error');
+              } on Exception catch (exception) {
+                weatherConditionName = '';
+                debugPrint('$exception');
               }
+              _updateWeatherCondition(weatherConditionName);
             },
             child: const Text('Reload'),
           ),
