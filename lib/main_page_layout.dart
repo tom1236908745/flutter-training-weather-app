@@ -138,6 +138,7 @@ class _TextButtons extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () {
+              // 遷移元へ戻す
               Navigator.of(context).pop();
             },
             child: const Text('Close'),
