@@ -7,9 +7,6 @@ Future<WeatherCondition?> fetchYumemiWeather() async {
 
   try {
     final weatherConditionName = yumemiWeather.fetchSimpleWeather();
-    if (weatherConditionName.isEmpty) {
-      throw Exception('Failed to get Yumemi Weather API');
-    }
     return WeatherCondition.from(weatherConditionName);
   } on Exception catch (exception) {
     if (kDebugMode) {
