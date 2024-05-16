@@ -1,26 +1,46 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
+import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:flutter_training/gen/assets.gen.dart';
+import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 
 /// 大枠のウィジェット
-class MainPageLayout extends StatelessWidget {
+class MainPageLayout extends StatefulWidget {
   const MainPageLayout({super.key});
 
   @override
+  State<MainPageLayout> createState() => MainPageLayoutState();
+}
+
+class MainPageLayoutState extends State<MainPageLayout> {
+  WeatherCondition? _weatherCondition;
+
+  void _updateWeatherCondition(WeatherCondition newWeatherCondition) {
+    setState(() {
+      _weatherCondition = newWeatherCondition;
+    });
+  }
+
+  @override
   Widget build(BuildContext context) {
-    return const Scaffold(
+    return Scaffold(
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 0.5,
           child: Column(
             children: <Widget>[
-              Spacer(),
-              _CenterPart(),
+              const Spacer(),
+              _CenterPart(weatherCondition: _weatherCondition),
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    SizedBox(
+                    const SizedBox(
                       height: 80,
                     ),
-                    _TextButtons(),
+                    _TextButtons(
+                      updateWeatherCondition: _updateWeatherCondition,
+                    ),
                   ],
                 ),
               ),
@@ -32,18 +52,38 @@ class MainPageLayout extends StatelessWidget {
   }
 }
 
+/// 天気情報を持ったEnumをsvg画像に変換
+SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
+  switch (weatherCondition) {
+    case WeatherCondition.cloudy:
+      return Assets.images.cloudy.svg();
+    case WeatherCondition.sunny:
+      return Assets.images.sunny.svg();
+    case WeatherCondition.rainy:
+      return Assets.images.rainy.svg();
+    case null:
+      return null;
+  }
+}
+
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
-  const _CenterPart();
+  const _CenterPart({
+    required WeatherCondition? weatherCondition,
+  }) : _weatherCondition = weatherCondition;
+
+  final WeatherCondition? _weatherCondition;
+
   @override
   Widget build(BuildContext context) {
-    return const Column(
+    return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: Placeholder(),
+          child:
+              convertSvgWeatherImage(_weatherCondition) ?? const Placeholder(),
         ),
-        Padding(
+        const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
           child: Row(
             children: <Widget>[
@@ -85,29 +125,33 @@ class _TemperatureText extends StatelessWidget {
 
 /// 並列に並ぶテキストボタンの箇所ウィジェット
 class _TextButtons extends StatelessWidget {
-  const _TextButtons();
+  const _TextButtons({
+    required void Function(WeatherCondition) updateWeatherCondition,
+  }) : _updateWeatherCondition = updateWeatherCondition;
+  final void Function(WeatherCondition) _updateWeatherCondition;
   @override
   Widget build(BuildContext context) {
-    return const Row(
+    return Row(
       children: <Widget>[
-        Expanded(child: _OperatingTextButton(textWord: 'Close')),
-        Expanded(child: _OperatingTextButton(textWord: 'Reload')),
-      ],
-    );
-  }
-}
+        Expanded(
+          child: TextButton(
+            onPressed: () {},
+            child: const Text('Close'),
+          ),
+        ),
+        Expanded(
+          child: TextButton(
+            onPressed: () async {
+              final weatherConditionName = await fetchYumemiWeather();
 
-/// テキストボタンの共通箇所用ウィジェット
-class _OperatingTextButton extends StatelessWidget {
-  const _OperatingTextButton({required String textWord}) : _textWord = textWord;
-  final String _textWord;
-  @override
-  Widget build(BuildContext context) {
-    return TextButton(
-      onPressed: null,
-      child: Text(
-        _textWord,
-      ),
+              if (weatherConditionName != null) {
+                _updateWeatherCondition(weatherConditionName);
+              }
+            },
+            child: const Text('Reload'),
+          ),
+        ),
+      ],
     );
   }
 }
