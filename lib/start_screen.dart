@@ -9,10 +9,19 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => StartScreenState();
 }
 
-class StartScreenState extends State<StartScreen> {
+mixin AfterDisplayLayout on State<StartScreen> {
+  void afterDisplayLayout();
+}
+
+class StartScreenState extends State<StartScreen> with AfterDisplayLayout {
   @override
   void initState() {
     super.initState();
+    afterDisplayLayout();
+  }
+
+  @override
+  void afterDisplayLayout() {
     final navigatorState = Navigator.of(context);
     final route = MaterialPageRoute<void>(
       builder: (context) => const MainPageLayout(),
