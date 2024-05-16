@@ -11,6 +11,7 @@ class StartScreen extends StatefulWidget {
 class StartScreenState extends State<StartScreen> {
   @override
   void initState() {
+    super.initState();
     final navigatorState = Navigator.of(context);
     final route = MaterialPageRoute<void>(
       builder: (context) => const MainPageLayout(),
@@ -18,7 +19,6 @@ class StartScreenState extends State<StartScreen> {
     Future.delayed(const Duration(seconds: 1) * 0.5, () async {
       await navigatorState.push(route);
     });
-    super.initState();
   }
 
   @override
