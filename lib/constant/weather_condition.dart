@@ -1,5 +1,3 @@
-import 'package:collection/collection.dart';
-
 /// 天気の種類を扱うEnum
 enum WeatherCondition {
   cloudy,
@@ -7,14 +5,9 @@ enum WeatherCondition {
   rainy;
 
   factory WeatherCondition.from(String conditionName) {
-    final result = WeatherCondition.values.singleWhereOrNull(
+    return WeatherCondition.values.singleWhere(
       (element) => element.name == conditionName,
+      orElse: () => throw FormatException('`$conditionName` is invalid format'),
     );
-
-    if (result == null) {
-      throw FormatException('`$conditionName` is invalid format');
-    }
-
-    return result;
   }
 }
