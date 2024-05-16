@@ -1,4 +1,4 @@
-import 'package:flutter/material.dart';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -12,7 +12,9 @@ Future<WeatherCondition?> fetchYumemiWeather() async {
     }
     return WeatherCondition.from(weatherConditionName);
   } on Exception catch (exception) {
-    debugPrint('$exception');
+    if (kDebugMode) {
+      debugPrint('$exception');
+    }
   }
   return null;
 }
