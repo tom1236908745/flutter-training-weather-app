@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
@@ -13,9 +14,9 @@ class MainPageLayout extends StatefulWidget {
 }
 
 class MainPageLayoutState extends State<MainPageLayout> {
-  String _weatherCondition = '';
+  WeatherCondition? _weatherCondition;
 
-  void _updateWeatherCondition(String newWeatherCondition) {
+  void _updateWeatherCondition(WeatherCondition newWeatherCondition) {
     setState(() {
       _weatherCondition = newWeatherCondition;
     });
@@ -51,27 +52,27 @@ class MainPageLayoutState extends State<MainPageLayout> {
   }
 }
 
-/// 天気情報を持ったEnumに各項目と画像の対応付けを拡張
-extension WeatherTypePath on WeatherCondition {
-  SvgPicture get path {
-    switch (this) {
-      case WeatherCondition.cloudy:
-        return Assets.images.cloudy.svg();
-      case WeatherCondition.sunny:
-        return Assets.images.sunny.svg();
-      case WeatherCondition.rainy:
-        return Assets.images.rainy.svg();
-    }
+/// 天気情報を持ったEnumをsvg画像に変換
+SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
+  switch (weatherCondition) {
+    case WeatherCondition.cloudy:
+      return Assets.images.cloudy.svg();
+    case WeatherCondition.sunny:
+      return Assets.images.sunny.svg();
+    case WeatherCondition.rainy:
+      return Assets.images.rainy.svg();
+    case null:
+      return null;
   }
 }
 
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart({
-    required String weatherCondition,
+    required WeatherCondition? weatherCondition,
   }) : _weatherCondition = weatherCondition;
 
-  final String _weatherCondition;
+  final WeatherCondition? _weatherCondition;
 
   @override
   Widget build(BuildContext context) {
@@ -79,9 +80,8 @@ class _CenterPart extends StatelessWidget {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: _weatherCondition.isEmpty
-              ? const Placeholder()
-              : WeatherCondition.from(_weatherCondition).path,
+          child:
+              convertSvgWeatherImage(_weatherCondition) ?? const Placeholder(),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
@@ -126,9 +126,9 @@ class _TemperatureText extends StatelessWidget {
 /// 並列に並ぶテキストボタンの箇所ウィジェット
 class _TextButtons extends StatelessWidget {
   const _TextButtons({
-    required void Function(String) updateWeatherCondition,
+    required void Function(WeatherCondition) updateWeatherCondition,
   }) : _updateWeatherCondition = updateWeatherCondition;
-  final void Function(String) _updateWeatherCondition;
+  final void Function(WeatherCondition) _updateWeatherCondition;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -142,7 +142,7 @@ class _TextButtons extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              late final String? weatherConditionName;
+              late final WeatherCondition? weatherConditionName;
 
               weatherConditionName = await fetchYumemiWeather();
 
