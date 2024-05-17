@@ -16,9 +16,6 @@ Future<WeatherCondition?> fetchYumemiWeather(BuildContext context) async {
       debugPrint('$exception');
     }
   } on YumemiWeatherError catch (error) {
-    if (kDebugMode) {
-      debugPrint('$error');
-    }
     await showErrorDialog(context, 'API取得に失敗しました。\n\nエラー内容: $error');
   }
   return null;
