@@ -147,7 +147,7 @@ class _TextButtons extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              final weatherConditionName = await fetchYumemiWeather();
+              final weatherConditionName = await fetchYumemiWeather(context);
 
               if (weatherConditionName != null) {
                 _updateWeatherCondition(weatherConditionName);
