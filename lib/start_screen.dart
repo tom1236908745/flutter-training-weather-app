@@ -6,10 +6,10 @@ class StartScreen extends StatefulWidget {
   const StartScreen({super.key});
 
   @override
-  State<StartScreen> createState() => StartScreenState();
+  State<StartScreen> createState() => _StartScreenState();
 }
 
-class StartScreenState extends State<StartScreen> {
+class _StartScreenState extends State<StartScreen> {
   @override
   void initState() {
     super.initState();
