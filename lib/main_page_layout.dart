@@ -40,31 +40,6 @@ class MainPageLayoutState extends State<MainPageLayout> {
                     const SizedBox(
                       height: 80,
                     ),
-                    // TODO: 後で消す
-                    TextButton(
-                      onPressed: () async => showDialog<String>(
-                        context: context,
-                        builder: (context) => AlertDialog(
-                          // TODO: いるか確認
-                          // title: const Text('AlertDialog Title'),
-                          content: const SingleChildScrollView(
-                            child: ListBody(
-                              children: <Widget>[
-                                Text('error'),
-                              ],
-                            ),
-                          ),
-                          // TODO: 閉じた時にだけ必要(？)
-                          actions: <Widget>[
-                            TextButton(
-                              onPressed: () => Navigator.pop(context, 'OK'),
-                              child: const Text('OK'),
-                            ),
-                          ],
-                        ),
-                      ),
-                      child: const Text('open'),
-                    ),
                     _TextButtons(
                       updateWeatherCondition: _updateWeatherCondition,
                     ),
@@ -172,7 +147,7 @@ class _TextButtons extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              final weatherConditionName = await fetchYumemiWeather();
+              final weatherConditionName = await fetchYumemiWeather(context);
 
               if (weatherConditionName != null) {
                 _updateWeatherCondition(weatherConditionName);
