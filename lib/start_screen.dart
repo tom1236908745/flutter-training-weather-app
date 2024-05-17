@@ -18,7 +18,7 @@ class _StartScreenState extends State<StartScreen> {
       builder: (context) => const MainPageLayout(),
     );
     // 開始から5秒遅らせて、メイン画面に遷移
-    Future.delayed(const Duration(seconds: 1) * 0.5, () async {
+    Future.delayed(const Duration(milliseconds: 500), () async {
       await navigatorState.push(route);
     });
   }
