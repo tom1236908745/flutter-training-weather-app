@@ -1,3 +1,5 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
 import 'package:flutter_training/main_page_layout.dart';
 
@@ -10,17 +12,27 @@ class StartScreen extends StatefulWidget {
 }
 
 class _StartScreenState extends State<StartScreen> {
+  /// 開始から0.5秒遅らせて、メイン画面に遷移
+  Future<void> _navigateMainPage() async {
+    await Future<void>.delayed(const Duration(milliseconds: 500));
+    if (mounted) {
+      final route = MaterialPageRoute<void>(
+        builder: (context) => const MainPageLayout(),
+      );
+      final navigatorState = Navigator.of(context);
+      await navigatorState.push(route);
+      unawaited(_navigateMainPage());
+    }
+  }
+
   @override
   void initState() {
     super.initState();
-    final navigatorState = Navigator.of(context);
-    final route = MaterialPageRoute<void>(
-      builder: (context) => const MainPageLayout(),
+    unawaited(
+      WidgetsBinding.instance.endOfFrame.then((_) {
+        _navigateMainPage();
+      }),
     );
-    // 開始から5秒遅らせて、メイン画面に遷移
-    Future.delayed(const Duration(milliseconds: 500), () async {
-      await navigatorState.push(route);
-    });
   }
 
   @override
