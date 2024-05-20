@@ -1,25 +1,20 @@
-import 'package:flutter/material.dart';
-import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/set_error_phrase.dart';
-import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:flutter_training/model/weather_info.dart';
+import 'package:flutter_training/repository/result.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-Future<WeatherCondition?> fetchYumemiWeather(BuildContext context) async {
-  final yumemiWeather = YumemiWeather();
+/// API・`YumemiWeather` で使用する `Repository` 用の関数
+Future<Result<WeatherInfoModel>> fetchYumemiWeather() async {
   try {
-    final weatherConditionName = yumemiWeather.fetchThrowsWeather('tokyo');
-
-    return WeatherCondition.from(weatherConditionName);
+    final weatherConditionName = YumemiWeather().fetchThrowsWeather('tokyo');
+    return Success(WeatherInfoModel.fromJson(weatherConditionName));
   } on Exception catch (exception) {
-    await showErrorDialog(
-      context,
+    return Failure(
       '$setErrorPhrase$exception',
     );
   } on YumemiWeatherError catch (error) {
-    await showErrorDialog(
-      context,
+    return Failure(
       '$setErrorPhrase$error',
     );
   }
-  return null;
 }
