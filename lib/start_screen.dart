@@ -12,6 +12,18 @@ class StartScreen extends StatefulWidget {
 }
 
 mixin _AfterDisplayLayout on State<StartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    unawaited(
+      WidgetsBinding.instance.endOfFrame.then(
+        (_) {
+          afterDisplayLayout();
+        },
+      ),
+    );
+  }
+
   Future<void> afterDisplayLayout();
 }
 
@@ -28,18 +40,6 @@ class _StartScreenState extends State<StartScreen> with _AfterDisplayLayout {
       await navigatorState.push(route);
       unawaited(afterDisplayLayout());
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(
-      WidgetsBinding.instance.endOfFrame.then(
-        (_) {
-          afterDisplayLayout();
-        },
-      ),
-    );
   }
 
   @override
