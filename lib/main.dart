@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_training/main_page_layout.dart';
+import 'package:flutter_training/start_screen.dart';
 
 void main() {
   runApp(const MainApp());
@@ -12,7 +12,7 @@ class MainApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return const MaterialApp(
       title: 'Weather App',
-      home: MainPageLayout(),
+      home: StartScreen(),
     );
   }
 }

@@ -18,7 +18,9 @@ class MainPageLayoutState extends State<MainPageLayout> {
 
   void _updateWeatherCondition(WeatherCondition newWeatherCondition) {
     setState(() {
-      _weatherCondition = newWeatherCondition;
+      if (mounted) {
+        _weatherCondition = newWeatherCondition;
+      }
     });
   }
 
@@ -135,7 +137,10 @@ class _TextButtons extends StatelessWidget {
       children: <Widget>[
         Expanded(
           child: TextButton(
-            onPressed: () {},
+            onPressed: () {
+              // 遷移元へ戻す
+              Navigator.of(context).pop();
+            },
             child: const Text('Close'),
           ),
         ),
