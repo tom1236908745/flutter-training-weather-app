@@ -11,9 +11,26 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => _StartScreenState();
 }
 
-class _StartScreenState extends State<StartScreen> {
+mixin _AfterDisplayLayout on State<StartScreen> {
+  @override
+  void initState() {
+    super.initState();
+    unawaited(
+      WidgetsBinding.instance.endOfFrame.then(
+        (_) {
+          afterDisplayLayout();
+        },
+      ),
+    );
+  }
+
+  Future<void> afterDisplayLayout();
+}
+
+class _StartScreenState extends State<StartScreen> with _AfterDisplayLayout {
   /// 開始から0.5秒遅らせて、メイン画面に遷移
-  Future<void> _navigateMainPage() async {
+  @override
+  Future<void> afterDisplayLayout() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
     if (mounted) {
       final route = MaterialPageRoute<void>(
@@ -21,18 +38,8 @@ class _StartScreenState extends State<StartScreen> {
       );
       final navigatorState = Navigator.of(context);
       await navigatorState.push(route);
-      unawaited(_navigateMainPage());
+      unawaited(afterDisplayLayout());
     }
-  }
-
-  @override
-  void initState() {
-    super.initState();
-    unawaited(
-      WidgetsBinding.instance.endOfFrame.then((_) {
-        _navigateMainPage();
-      }),
-    );
   }
 
   @override
