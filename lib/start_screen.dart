@@ -11,12 +11,12 @@ class StartScreen extends StatefulWidget {
   State<StartScreen> createState() => _StartScreenState();
 }
 
-mixin AfterDisplayLayout on State<StartScreen> {
+mixin _AfterDisplayLayout on State<StartScreen> {
   Future<void> afterDisplayLayout();
 }
 
-class _StartScreenState extends State<StartScreen> with AfterDisplayLayout {
-  /// 開始から0.5秒遅らせて、メイン画面に遷
+class _StartScreenState extends State<StartScreen> with _AfterDisplayLayout {
+  /// 開始から0.5秒遅らせて、メイン画面に遷移
   @override
   Future<void> afterDisplayLayout() async {
     await Future<void>.delayed(const Duration(milliseconds: 500));
