@@ -4,6 +4,7 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
+import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
@@ -17,12 +18,12 @@ class MainPageLayout extends StatefulWidget {
 }
 
 class MainPageLayoutState extends State<MainPageLayout> {
-  WeatherCondition? _weatherCondition;
+  WeatherInfoModel? _weatherInfo;
 
-  void _updateWeatherCondition(WeatherCondition newWeatherCondition) {
+  void _updateWeatherCondition(WeatherInfoModel newWeatherInfo) {
     setState(() {
       if (mounted) {
-        _weatherCondition = newWeatherCondition;
+        _weatherInfo = newWeatherInfo;
       }
     });
   }
@@ -36,7 +37,7 @@ class MainPageLayoutState extends State<MainPageLayout> {
           child: Column(
             children: <Widget>[
               const Spacer(),
-              _CenterPart(weatherCondition: _weatherCondition),
+              _CenterPart(weatherInfo: _weatherInfo),
               Expanded(
                 child: Column(
                   children: <Widget>[
@@ -74,10 +75,10 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart({
-    required WeatherCondition? weatherCondition,
-  }) : _weatherCondition = weatherCondition;
+    required WeatherInfoModel? weatherInfo,
+  }) : _weatherInfo = weatherInfo;
 
-  final WeatherCondition? _weatherCondition;
+  final WeatherInfoModel? _weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -85,8 +86,8 @@ class _CenterPart extends StatelessWidget {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child:
-              convertSvgWeatherImage(_weatherCondition) ?? const Placeholder(),
+          child: convertSvgWeatherImage(_weatherInfo?.weatherCondition) ??
+              const Placeholder(),
         ),
         const Padding(
           padding: EdgeInsets.symmetric(vertical: 16),
@@ -131,9 +132,9 @@ class _TemperatureText extends StatelessWidget {
 /// 並列に並ぶテキストボタンの箇所ウィジェット
 class _TextButtons extends StatelessWidget {
   const _TextButtons({
-    required void Function(WeatherCondition) updateWeatherCondition,
+    required void Function(WeatherInfoModel) updateWeatherCondition,
   }) : _updateWeatherCondition = updateWeatherCondition;
-  final void Function(WeatherCondition) _updateWeatherCondition;
+  final void Function(WeatherInfoModel) _updateWeatherCondition;
   @override
   Widget build(BuildContext context) {
     return Row(
