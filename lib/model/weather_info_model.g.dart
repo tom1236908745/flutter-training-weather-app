@@ -9,17 +9,18 @@ part of 'weather_info_model.dart';
 WeatherInfoModel _$WeatherInfoModelFromJson(Map<String, dynamic> json) =>
     WeatherInfoModel(
       weatherCondition:
-          $enumDecode(_$WeatherConditionEnumMap, json['weatherCondition']),
-      maxTemperature: (json['maxTemperature'] as num).toInt(),
-      minTemperature: (json['minTemperature'] as num).toInt(),
+          $enumDecode(_$WeatherConditionEnumMap, json['weather_condition']),
+      maxTemperature: (json['max_temperature'] as num).toInt(),
+      minTemperature: (json['min_temperature'] as num).toInt(),
       date: DateTime.parse(json['date'] as String),
     );
 
 Map<String, dynamic> _$WeatherInfoModelToJson(WeatherInfoModel instance) =>
     <String, dynamic>{
-      'weatherCondition': _$WeatherConditionEnumMap[instance.weatherCondition]!,
-      'maxTemperature': instance.maxTemperature,
-      'minTemperature': instance.minTemperature,
+      'weather_condition':
+          _$WeatherConditionEnumMap[instance.weatherCondition]!,
+      'max_temperature': instance.maxTemperature,
+      'min_temperature': instance.minTemperature,
       'date': instance.date.toIso8601String(),
     };
 

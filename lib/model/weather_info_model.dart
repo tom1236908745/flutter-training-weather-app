@@ -4,7 +4,7 @@ import 'package:json_annotation/json_annotation.dart';
 
 part 'weather_info_model.g.dart';
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class WeatherInfoModel {
   WeatherInfoModel({
     required this.weatherCondition,
@@ -55,6 +55,8 @@ class WeatherInfoModel {
       date: date,
     );
   }
+
+  Map<String, dynamic> toJson() => _$WeatherInfoModelToJson(this);
 
   final WeatherCondition weatherCondition;
   final int maxTemperature;
