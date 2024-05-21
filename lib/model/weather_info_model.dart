@@ -3,9 +3,6 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather_info_model.freezed.dart';
 
-// `FormatException` にスローする共通関数
-Never _throwFormatException(String message) => throw FormatException(message);
-
 /// API・YumemiWeather から取得するデータ用のモデル層
 @freezed
 class WeatherInfoModel with _$WeatherInfoModel {
@@ -18,8 +15,12 @@ class WeatherInfoModel with _$WeatherInfoModel {
 
   @override
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
+    // `Exception` にスローする共通関数
+    Never throwFormatException(String message) =>
+        throw FormatException(message);
+
     if (json.isEmpty) {
-      _throwFormatException('Response Json data does not exist.');
+      throwFormatException('Response Json data does not exist.');
     }
 
     final weatherCondition = WeatherCondition.from(
@@ -28,21 +29,21 @@ class WeatherInfoModel with _$WeatherInfoModel {
 
     final maxTemperature = int.tryParse(json['max_temperature'].toString());
     if (maxTemperature == null) {
-      _throwFormatException(
+      throwFormatException(
         '''The "max_temperature" value must be numeric.''',
       );
     }
 
     final minTemperature = int.tryParse(json['min_temperature'].toString());
     if (minTemperature == null) {
-      _throwFormatException(
+      throwFormatException(
         '''The "min_temperature" value must be numeric.''',
       );
     }
 
     final date = DateTime.tryParse(json['date'].toString());
     if (date == null) {
-      _throwFormatException(
+      throwFormatException(
         '''The "date" value must be a string in ISO format.''',
       );
     }
