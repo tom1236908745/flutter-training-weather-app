@@ -4,9 +4,9 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
-import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 import 'package:flutter_training/repository/result.dart';
+import 'package:flutter_training/view_model/weather_info.dart';
 
 /// 大枠のウィジェット
 class MainPageLayout extends StatefulWidget {
@@ -153,14 +153,14 @@ class _TextButtons extends StatelessWidget {
               final weatherInfo = await fetchYumemiWeather();
 
               // APIの取得に成功した場合
-              if (weatherInfo is Success<WeatherInfoModel>) {
+              if (weatherInfo is Success<WeatherInfo>) {
                 _updateWeatherCondition(
                   weatherInfo.value.weatherCondition,
                 );
               }
 
               // APIの取得に失敗した場合
-              if (weatherInfo is Failure<WeatherInfoModel>) {
+              if (weatherInfo is Failure<WeatherInfo>) {
                 await showErrorDialog(
                   context,
                   weatherInfo.error,
