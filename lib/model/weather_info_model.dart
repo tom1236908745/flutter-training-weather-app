@@ -56,8 +56,6 @@ class WeatherInfoModel {
     );
   }
 
-  Map<String, dynamic> toJson() => _$WeatherInfoModelToJson(this);
-
   final WeatherCondition weatherCondition;
   final int maxTemperature;
   final int minTemperature;
