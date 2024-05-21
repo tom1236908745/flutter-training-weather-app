@@ -6,7 +6,7 @@ part 'weather_info_model.g.dart';
 /// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
-@JsonSerializable()
+@JsonSerializable(fieldRename: FieldRename.snake)
 class WeatherInfoModel {
   WeatherInfoModel({
     required this.weatherCondition,
@@ -53,6 +53,8 @@ class WeatherInfoModel {
       date: date,
     );
   }
+
+  Map<String, dynamic> toJson() => _$WeatherInfoModelToJson(this);
 
   final WeatherCondition weatherCondition;
   final int maxTemperature;
