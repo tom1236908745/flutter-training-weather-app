@@ -17,7 +17,7 @@ class MainPageLayout extends StatefulWidget {
 }
 
 class MainPageLayoutState extends State<MainPageLayout> {
-  WeatherInfo? _weatherInfo;
+  late WeatherInfo _weatherInfo;
 
   void _updateWeatherCondition(WeatherInfo newWeatherInfo) {
     setState(() {
@@ -74,10 +74,10 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart({
-    required WeatherInfo? weatherInfo,
+    required WeatherInfo weatherInfo,
   }) : _weatherInfo = weatherInfo;
 
-  final WeatherInfo? _weatherInfo;
+  final WeatherInfo _weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -85,21 +85,23 @@ class _CenterPart extends StatelessWidget {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: convertSvgWeatherImage(_weatherInfo?.weatherCondition) ??
+          child: convertSvgWeatherImage(_weatherInfo.weatherCondition) ??
               const Placeholder(),
         ),
-        const Padding(
-          padding: EdgeInsets.symmetric(vertical: 16),
+        Padding(
+          padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(
             children: <Widget>[
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.red,
+                  temperature: _weatherInfo.maxTemperature,
                 ),
               ),
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.blue,
+                  temperature: _weatherInfo.minTemperature,
                 ),
               ),
             ],
@@ -114,13 +116,17 @@ class _CenterPart extends StatelessWidget {
 class _TemperatureText extends StatelessWidget {
   const _TemperatureText({
     required Color textColor,
-  }) : _textColor = textColor;
+    required int temperature,
+  })  : _textColor = textColor,
+        _temperature = temperature;
+
   final Color _textColor;
+  final int? _temperature;
 
   @override
   Widget build(BuildContext context) {
     return Text(
-      '** ℃',
+      '$_temperature ℃',
       textAlign: TextAlign.center,
       style:
           Theme.of(context).textTheme.labelLarge?.copyWith(color: _textColor),
