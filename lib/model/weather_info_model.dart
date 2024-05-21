@@ -1,8 +1,12 @@
 import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:json_annotation/json_annotation.dart';
+
+part 'weather_info_model.g.dart';
 
 /// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
+@JsonSerializable()
 class WeatherInfoModel {
   WeatherInfoModel({
     required this.weatherCondition,
@@ -11,6 +15,7 @@ class WeatherInfoModel {
     required this.date,
   });
 
+  @override
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
     if (json.isEmpty) {
       _throwFormatException('Response Json data does not exist.');
