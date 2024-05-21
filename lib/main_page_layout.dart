@@ -4,7 +4,6 @@ import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
-import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
@@ -18,9 +17,9 @@ class MainPageLayout extends StatefulWidget {
 }
 
 class MainPageLayoutState extends State<MainPageLayout> {
-  WeatherInfoModel? _weatherInfo;
+  WeatherInfo? _weatherInfo;
 
-  void _updateWeatherCondition(WeatherInfoModel newWeatherInfo) {
+  void _updateWeatherCondition(WeatherInfo newWeatherInfo) {
     setState(() {
       if (mounted) {
         _weatherInfo = newWeatherInfo;
@@ -75,10 +74,10 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart({
-    required WeatherInfoModel? weatherInfo,
+    required WeatherInfo? weatherInfo,
   }) : _weatherInfo = weatherInfo;
 
-  final WeatherInfoModel? _weatherInfo;
+  final WeatherInfo? _weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -132,9 +131,9 @@ class _TemperatureText extends StatelessWidget {
 /// 並列に並ぶテキストボタンの箇所ウィジェット
 class _TextButtons extends StatelessWidget {
   const _TextButtons({
-    required void Function(WeatherInfoModel) updateWeatherCondition,
+    required void Function(WeatherInfo) updateWeatherCondition,
   }) : _updateWeatherCondition = updateWeatherCondition;
-  final void Function(WeatherInfoModel) _updateWeatherCondition;
+  final void Function(WeatherInfo) _updateWeatherCondition;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -157,7 +156,7 @@ class _TextButtons extends StatelessWidget {
                 // APIの取得に成功した場合
                 case Success<WeatherInfo>():
                   _updateWeatherCondition(
-                    result.value.weatherCondition,
+                    result.value,
                   );
 
                 // APIの取得に失敗した場合

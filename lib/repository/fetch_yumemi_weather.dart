@@ -1,8 +1,6 @@
-
 import 'dart:convert';
 
 import 'package:flutter_training/constant/set_error_phrase.dart';
-import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/model/weather_info_model.dart';
 import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
@@ -19,8 +17,16 @@ const jsonString = '''
 Future<Result<WeatherInfo>> fetchYumemiWeather() async {
   try {
     final weatherResponse = YumemiWeather().fetchWeather(jsonString);
-    return Success(WeatherInfo(WeatherInfoModel.fromJson(
-        jsonDecode(weatherResponse) as Map<String, dynamic>)))
+    final weatherInfoModel = WeatherInfoModel.fromJson(
+      jsonDecode(weatherResponse) as Map<String, dynamic>,
+    );
+    return Success(
+      WeatherInfo(
+        weatherCondition: weatherInfoModel.weatherCondition,
+        maxTemperature: weatherInfoModel.maxTemperature,
+        minTemperature: weatherInfoModel.minTemperature,
+      ),
+    );
   } on Exception catch (exception) {
     return Failure(
       '$setErrorPhrase$exception',
