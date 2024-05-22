@@ -21,7 +21,7 @@ Future<Result<WeatherInfo>> fetchYumemiWeather() async {
         RequestModel(area: 'tokyo', date: '2020-04-01T12:00:00+09:00');
 
     final weatherResponse =
-        YumemiWeather().fetchWeather(requestData.toJson() as String);
+        YumemiWeather().fetchWeather(jsonEncode(requestData.toJson()));
     final weatherInfoModel = WeatherInfoModel.fromJson(
       jsonDecode(weatherResponse) as Map<String, dynamic>,
     );
