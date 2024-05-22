@@ -5,6 +5,9 @@ targets:
         options:
           ignore_for_file:
             - type=lint
+            - unused_element
             - duplicate_ignore
+      json_serializable:
+        options:
           checked: true
           field_rename: snake
