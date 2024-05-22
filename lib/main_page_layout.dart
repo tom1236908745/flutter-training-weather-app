@@ -152,19 +152,21 @@ class _TextButtons extends StatelessWidget {
             onPressed: () async {
               final result = await fetchYumemiWeather();
 
-              // APIの取得に成功した場合
-              if (result is Success<WeatherInfo>) {
-                _updateWeatherCondition(
-                  result.value.weatherCondition,
-                );
-              }
+              switch (result) {
+                // APIの取得に成功した場合
+                case Success<WeatherInfo>():
+                  _updateWeatherCondition(
+                    result.value.weatherCondition,
+                  );
 
-              // APIの取得に失敗した場合
-              if (result is Failure<WeatherInfo> && context.mounted) {
-                await showErrorDialog(
-                  context,
-                  result.error,
-                );
+                // APIの取得に失敗した場合
+                case Failure<WeatherInfo>():
+                  if (context.mounted) {
+                    await showErrorDialog(
+                      context,
+                      result.error,
+                    );
+                  }
               }
             },
             child: const Text('Reload'),
