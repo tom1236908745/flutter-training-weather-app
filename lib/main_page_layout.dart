@@ -116,12 +116,12 @@ class _CenterPart extends StatelessWidget {
 class _TemperatureText extends StatelessWidget {
   const _TemperatureText({
     required Color textColor,
-    required int? temperature,
+    required String? temperature,
   })  : _textColor = textColor,
         _temperature = temperature;
 
   final Color _textColor;
-  final int? _temperature;
+  final String? _temperature;
 
   @override
   Widget build(BuildContext context) {
