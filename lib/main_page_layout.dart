@@ -160,7 +160,7 @@ class _TextButtons extends StatelessWidget {
               }
 
               // APIの取得に失敗した場合
-              if (weatherInfo is Failure<WeatherInfo>) {
+              if (weatherInfo is Failure<WeatherInfo> && context.mounted) {
                 await showErrorDialog(
                   context,
                   weatherInfo.error,
