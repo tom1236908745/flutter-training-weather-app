@@ -17,9 +17,8 @@ class MainPageLayout extends StatefulWidget {
 }
 
 class MainPageLayoutState extends State<MainPageLayout> {
-  late WeatherInfo _weatherInfo;
-
-  void _updateWeatherCondition(WeatherInfo newWeatherInfo) {
+  WeatherInfo? _weatherInfo;
+  void _updateWeatherInfo(WeatherInfo newWeatherInfo) {
     setState(() {
       if (mounted) {
         _weatherInfo = newWeatherInfo;
@@ -44,7 +43,7 @@ class MainPageLayoutState extends State<MainPageLayout> {
                       height: 80,
                     ),
                     _TextButtons(
-                      updateWeatherCondition: _updateWeatherCondition,
+                      updateWeatherCondition: _updateWeatherInfo,
                     ),
                   ],
                 ),
@@ -74,10 +73,10 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 /// 中央部分のウィジェット
 class _CenterPart extends StatelessWidget {
   const _CenterPart({
-    required WeatherInfo weatherInfo,
+    required WeatherInfo? weatherInfo,
   }) : _weatherInfo = weatherInfo;
 
-  final WeatherInfo _weatherInfo;
+  final WeatherInfo? _weatherInfo;
 
   @override
   Widget build(BuildContext context) {
@@ -85,7 +84,7 @@ class _CenterPart extends StatelessWidget {
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: convertSvgWeatherImage(_weatherInfo.weatherCondition) ??
+          child: convertSvgWeatherImage(_weatherInfo?.weatherCondition) ??
               const Placeholder(),
         ),
         Padding(
@@ -95,13 +94,13 @@ class _CenterPart extends StatelessWidget {
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.red,
-                  temperature: _weatherInfo.maxTemperature,
+                  temperature: _weatherInfo?.maxTemperature,
                 ),
               ),
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.blue,
-                  temperature: _weatherInfo.minTemperature,
+                  temperature: _weatherInfo?.minTemperature,
                 ),
               ),
             ],
@@ -116,7 +115,7 @@ class _CenterPart extends StatelessWidget {
 class _TemperatureText extends StatelessWidget {
   const _TemperatureText({
     required Color textColor,
-    required int temperature,
+    required int? temperature,
   })  : _textColor = textColor,
         _temperature = temperature;
 
@@ -138,8 +137,8 @@ class _TemperatureText extends StatelessWidget {
 class _TextButtons extends StatelessWidget {
   const _TextButtons({
     required void Function(WeatherInfo) updateWeatherCondition,
-  }) : _updateWeatherCondition = updateWeatherCondition;
-  final void Function(WeatherInfo) _updateWeatherCondition;
+  }) : _updateWeatherInfo = updateWeatherCondition;
+  final void Function(WeatherInfo) _updateWeatherInfo;
   @override
   Widget build(BuildContext context) {
     return Row(
@@ -161,7 +160,7 @@ class _TextButtons extends StatelessWidget {
               switch (result) {
                 // APIの取得に成功した場合
                 case Success<WeatherInfo>():
-                  _updateWeatherCondition(
+                  _updateWeatherInfo(
                     result.value,
                   );
 
