@@ -6,6 +6,10 @@ void _handleCloseDialog(BuildContext context) {
 
 /// エラーメッセージを表示するダイアログ
 Future<void> showErrorDialog(BuildContext context, String errorMessage) async {
+  if (!context.mounted) {
+    return;
+  }
+
   await showDialog<void>(
     context: context,
     builder: (context) {
