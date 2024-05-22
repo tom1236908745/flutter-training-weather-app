@@ -125,7 +125,7 @@ class _TemperatureText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '$_temperature ℃',
+      '${_temperature ?? '** '} ℃',
       textAlign: TextAlign.center,
       style:
           Theme.of(context).textTheme.labelLarge?.copyWith(color: _textColor),
