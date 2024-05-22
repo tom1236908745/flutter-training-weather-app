@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
+import 'package:flutter_training/constant/initial_string.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
@@ -125,7 +126,7 @@ class _TemperatureText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '${_temperature ?? '** '} ℃',
+      '${_temperature ?? initialString['temperature']} ℃',
       textAlign: TextAlign.center,
       style:
           Theme.of(context).textTheme.labelLarge?.copyWith(color: _textColor),
