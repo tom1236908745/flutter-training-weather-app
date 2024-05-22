@@ -1,9 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
+import 'package:flutter_training/components/Dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
+import 'package:flutter_training/repository/result.dart';
+import 'package:flutter_training/view_model/weather_info.dart';
 
 /// 大枠のウィジェット
 class MainPageLayout extends StatefulWidget {
@@ -147,10 +150,23 @@ class _TextButtons extends StatelessWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              final weatherConditionName = await fetchYumemiWeather();
+              final result = await fetchYumemiWeather();
 
-              if (weatherConditionName != null) {
-                _updateWeatherCondition(weatherConditionName);
+              switch (result) {
+                // APIの取得に成功した場合
+                case Success<WeatherInfo>():
+                  _updateWeatherCondition(
+                    result.value.weatherCondition,
+                  );
+
+                // APIの取得に失敗した場合
+                case Failure<WeatherInfo>():
+                  if (context.mounted) {
+                    await showErrorDialog(
+                      context,
+                      result.error,
+                    );
+                  }
               }
             },
             child: const Text('Reload'),
