@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-void handleCloseDialog(BuildContext context) {
+void _handleCloseDialog(BuildContext context) {
   Navigator.of(context).pop();
 }
 
@@ -21,7 +21,7 @@ Future<void> showErrorDialog(BuildContext context, String errorMessage) async {
           TextButton(
             child: const Text('OK'),
             onPressed: () {
-              handleCloseDialog(context);
+              _handleCloseDialog(context);
             },
           ),
         ],
