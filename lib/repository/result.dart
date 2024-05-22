@@ -1,5 +1,5 @@
 /// `repository` で使用する関数の返り値の型
-abstract class Result<T> {
+sealed class Result<T> {
   const Result();
 }
 
