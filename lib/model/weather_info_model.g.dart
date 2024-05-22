@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: type=lint, duplicate_ignore
+// ignore_for_file: type=lint, unused_element, duplicate_ignore
 
 part of 'weather_info_model.dart';
 
@@ -9,12 +9,26 @@ part of 'weather_info_model.dart';
 // **************************************************************************
 
 WeatherInfoModel _$WeatherInfoModelFromJson(Map<String, dynamic> json) =>
-    WeatherInfoModel(
-      weatherCondition:
-          $enumDecode(_$WeatherConditionEnumMap, json['weather_condition']),
-      maxTemperature: (json['max_temperature'] as num).toInt(),
-      minTemperature: (json['min_temperature'] as num).toInt(),
-      date: DateTime.parse(json['date'] as String),
+    $checkedCreate(
+      'WeatherInfoModel',
+      json,
+      ($checkedConvert) {
+        final val = WeatherInfoModel(
+          weatherCondition: $checkedConvert('weather_condition',
+              (v) => $enumDecode(_$WeatherConditionEnumMap, v)),
+          maxTemperature:
+              $checkedConvert('max_temperature', (v) => (v as num).toInt()),
+          minTemperature:
+              $checkedConvert('min_temperature', (v) => (v as num).toInt()),
+          date: $checkedConvert('date', (v) => DateTime.parse(v as String)),
+        );
+        return val;
+      },
+      fieldKeyMap: const {
+        'weatherCondition': 'weather_condition',
+        'maxTemperature': 'max_temperature',
+        'minTemperature': 'min_temperature'
+      },
     );
 
 Map<String, dynamic> _$WeatherInfoModelToJson(WeatherInfoModel instance) =>
