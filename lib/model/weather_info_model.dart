@@ -2,11 +2,11 @@ import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather_info_model.freezed.dart';
-part 'weather_info_model.g.dart';
 
 /// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
+/// API・YumemiWeather から取得するデータ用のモデル層
 @freezed
 class WeatherInfoModel with _$WeatherInfoModel {
   const factory WeatherInfoModel({
