@@ -1,17 +1,17 @@
 import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
-import 'package:json_annotation/json_annotation.dart';
-
+part 'weather_info_model.freezed.dart';
 part 'weather_info_model.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class WeatherInfoModel {
-  WeatherInfoModel({
-    required this.weatherCondition,
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.date,
-  });
+@freezed
+class WeatherInfoModel with _$WeatherInfoModel {
+  const factory WeatherInfoModel({
+    required WeatherCondition weatherCondition,
+    required int maxTemperature,
+    required int minTemperature,
+    required DateTime date,
+  }) = _WeatherCondition;
 
   @override
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
@@ -55,9 +55,4 @@ class WeatherInfoModel {
       date: date,
     );
   }
-
-  final WeatherCondition weatherCondition;
-  final int maxTemperature;
-  final int minTemperature;
-  final DateTime date;
 }

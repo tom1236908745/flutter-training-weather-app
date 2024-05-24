@@ -8,12 +8,12 @@ part of 'request_model.dart';
 // JsonSerializableGenerator
 // **************************************************************************
 
-RequestModel _$RequestModelFromJson(Map<String, dynamic> json) =>
+_$RequestModelImpl _$$RequestModelImplFromJson(Map<String, dynamic> json) =>
     $checkedCreate(
-      'RequestModel',
+      r'_$RequestModelImpl',
       json,
       ($checkedConvert) {
-        final val = RequestModel(
+        final val = _$RequestModelImpl(
           area: $checkedConvert('area', (v) => v as String),
           date: $checkedConvert('date', (v) => v as String),
         );
@@ -21,7 +21,7 @@ RequestModel _$RequestModelFromJson(Map<String, dynamic> json) =>
       },
     );
 
-Map<String, dynamic> _$RequestModelToJson(RequestModel instance) =>
+Map<String, dynamic> _$$RequestModelImplToJson(_$RequestModelImpl instance) =>
     <String, dynamic>{
       'area': instance.area,
       'date': instance.date,

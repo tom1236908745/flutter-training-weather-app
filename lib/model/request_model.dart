@@ -1,16 +1,15 @@
-import 'package:json_annotation/json_annotation.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
 
+part 'request_model.freezed.dart';
 part 'request_model.g.dart';
 
-@JsonSerializable(fieldRename: FieldRename.snake)
-class RequestModel {
-  RequestModel({
-    required this.area,
-    required this.date,
-  });
+@freezed
+class RequestModel with _$RequestModel {
+  const factory RequestModel({
+    required String area,
+    required String date,
+  }) = _RequestModel;
 
-  Map<String, dynamic> toJson() => _$RequestModelToJson(this);
-
-  final String area;
-  final String date;
+  factory RequestModel.fromJson(Map<String, dynamic> json) =>
+      _$RequestModelFromJson(json);
 }
