@@ -4,6 +4,7 @@ import 'package:freezed_annotation/freezed_annotation.dart';
 part 'weather_info_model.freezed.dart';
 part 'weather_info_model.g.dart';
 
+/// API・YumemiWeather から取得するデータ用のモデル層
 @freezed
 class WeatherInfoModel with _$WeatherInfoModel {
   const factory WeatherInfoModel({
