@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/components/dialog/error_message_dialog.dart';
@@ -7,24 +8,25 @@ import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
+import 'package:riverpod_annotation/riverpod_annotation.dart';
 
-/// 大枠のウィジェット
-class MainPageLayout extends StatefulWidget {
-  const MainPageLayout({super.key});
+part 'main_page_layout.g.dart';
 
+@riverpod
+class WeatherInfoNotifier extends _$WeatherInfoNotifier {
   @override
-  State<MainPageLayout> createState() => MainPageLayoutState();
+  WeatherInfo? build(WeatherInfo? weatherInfo) {
+    return weatherInfo;
+  }
+
+  Future<void> update(WeatherInfo newWeatherInfo) async {
+    state = newWeatherInfo;
+  }
 }
 
-class MainPageLayoutState extends State<MainPageLayout> {
-  WeatherInfo? _weatherInfo;
-  void _updateWeatherInfo(WeatherInfo newWeatherInfo) {
-    setState(() {
-      if (mounted) {
-        _weatherInfo = newWeatherInfo;
-      }
-    });
-  }
+/// 大枠のウィジェット
+class MainPageLayout extends StatelessWidget {
+  const MainPageLayout({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -35,16 +37,14 @@ class MainPageLayoutState extends State<MainPageLayout> {
           child: Column(
             children: <Widget>[
               const Spacer(),
-              _CenterPart(weatherInfo: _weatherInfo),
+              _CenterPart(),
               Expanded(
                 child: Column(
                   children: <Widget>[
                     const SizedBox(
                       height: 80,
                     ),
-                    _TextButtons(
-                      updateWeatherCondition: _updateWeatherInfo,
-                    ),
+                    _TextButtons(),
                   ],
                 ),
               ),
@@ -71,20 +71,18 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 }
 
 /// 中央部分のウィジェット
-class _CenterPart extends StatelessWidget {
-  const _CenterPart({
-    required WeatherInfo? weatherInfo,
-  }) : _weatherInfo = weatherInfo;
-
-  final WeatherInfo? _weatherInfo;
-
+class _CenterPart extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    final weatherInfo = ref.watch(weatherInfoNotifierProvider(null));
     return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: convertSvgWeatherImage(_weatherInfo?.weatherCondition) ??
+          child: convertSvgWeatherImage(weatherInfo?.weatherCondition) ??
               const Placeholder(),
         ),
         Padding(
@@ -94,13 +92,15 @@ class _CenterPart extends StatelessWidget {
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.red,
-                  temperature: _weatherInfo?.maxTemperature,
+                  temperature: weatherInfo?.maxTemperature ??
+                      initialString['temperature'],
                 ),
               ),
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.blue,
-                  temperature: _weatherInfo?.minTemperature,
+                  temperature: weatherInfo?.minTemperature ??
+                      initialString['temperature'],
                 ),
               ),
             ],
@@ -134,13 +134,13 @@ class _TemperatureText extends StatelessWidget {
 }
 
 /// 並列に並ぶテキストボタンの箇所ウィジェット
-class _TextButtons extends StatelessWidget {
-  const _TextButtons({
-    required void Function(WeatherInfo) updateWeatherCondition,
-  }) : _updateWeatherInfo = updateWeatherCondition;
-  final void Function(WeatherInfo) _updateWeatherInfo;
+class _TextButtons extends ConsumerWidget {
   @override
-  Widget build(BuildContext context) {
+  Widget build(
+    BuildContext context,
+    WidgetRef ref,
+  ) {
+    final infoNotifier = ref.read(weatherInfoNotifierProvider(null).notifier);
     return Row(
       children: <Widget>[
         Expanded(
@@ -160,10 +160,7 @@ class _TextButtons extends StatelessWidget {
               switch (result) {
                 // APIの取得に成功した場合
                 case Success<WeatherInfo>():
-                  _updateWeatherInfo(
-                    result.value,
-                  );
-
+                  await infoNotifier.update(result.value);
                 // APIの取得に失敗した場合
                 case Failure<WeatherInfo>():
                   if (context.mounted) {
