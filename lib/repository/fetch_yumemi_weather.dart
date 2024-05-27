@@ -23,8 +23,8 @@ Future<Result<WeatherInfo>> fetchYumemiWeather() async {
     return Success(
       WeatherInfo(
         weatherCondition: weatherInfoModel.weatherCondition,
-        numMaxTemperature: weatherInfoModel.maxTemperature,
-        numMinTemperature: weatherInfoModel.minTemperature,
+        maxTemperature: weatherInfoModel.maxTemperature,
+        minTemperature: weatherInfoModel.minTemperature,
       ),
     );
   } on Exception catch (exception) {

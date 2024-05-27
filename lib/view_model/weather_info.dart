@@ -4,12 +4,11 @@ import 'package:flutter_training/constant/weather_condition.dart';
 class WeatherInfo {
   WeatherInfo({
     required this.weatherCondition,
-    required int numMaxTemperature,
-    required int numMinTemperature,
-  })  : maxTemperature = numMaxTemperature.toString(),
-        minTemperature = numMinTemperature.toString();
+    required this.maxTemperature,
+    required this.minTemperature,
+  });
 
   final WeatherCondition weatherCondition;
-  final String maxTemperature;
-  final String minTemperature;
+  final int maxTemperature;
+  final int minTemperature;
 }

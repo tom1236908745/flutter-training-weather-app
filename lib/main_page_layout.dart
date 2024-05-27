@@ -114,11 +114,11 @@ class _CenterPart extends StatelessWidget {
 
 /// 温度の表示用ウィジェット
 class _TemperatureText extends StatelessWidget {
-  const _TemperatureText({
+  _TemperatureText({
     required Color textColor,
-    required String? temperature,
+    required int? temperature,
   })  : _textColor = textColor,
-        _temperature = temperature;
+        _temperature = temperature != null ? temperature.toString() : '**';
 
   final Color _textColor;
   final String? _temperature;
@@ -126,7 +126,7 @@ class _TemperatureText extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Text(
-      '${_temperature ?? initialString['temperature']} ℃',
+      '$_temperature ℃',
       textAlign: TextAlign.center,
       style:
           Theme.of(context).textTheme.labelLarge?.copyWith(color: _textColor),
