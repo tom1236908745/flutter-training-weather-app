@@ -1,8 +1,8 @@
 import 'dart:convert';
 
-import 'package:flutter_training/constant/set_error_phrase.dart';
 import 'package:flutter_training/model/weather_info_model.dart';
 import 'package:flutter_training/repository/result.dart';
+import 'package:flutter_training/utils/format_fetch_failure_message.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
@@ -27,13 +27,17 @@ Future<Result<WeatherInfo>> fetchYumemiWeather() async {
         minTemperature: weatherInfoModel.minTemperature,
       ),
     );
+  } on FormatException catch (formatException) {
+    return Failure(
+      formatFetchFailureMessage(formatException),
+    );
   } on Exception catch (exception) {
     return Failure(
-      '$setErrorPhrase$exception',
+      formatFetchFailureMessage(exception),
     );
   } on YumemiWeatherError catch (error) {
     return Failure(
-      '$setErrorPhrase$error',
+      formatFetchFailureMessage(error),
     );
   }
 }

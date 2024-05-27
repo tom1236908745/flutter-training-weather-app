@@ -9,13 +9,21 @@ class WeatherInfoModel {
   });
 
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
-    return WeatherInfoModel(
-      weatherCondition:
-          WeatherCondition.from(json['weather_condition'] as String),
-      maxTemperature: json['max_temperature'] as int,
-      minTemperature: json['min_temperature'] as int,
-      date: json['date'] as String,
-    );
+    return switch (json) {
+      {
+        'weather_condition': final String weatherCondition,
+        'max_temperature': final int maxTemperature,
+        'min_temperature': final int minTemperature,
+        'date': final String date,
+      } =>
+        WeatherInfoModel(
+          weatherCondition: WeatherCondition.from(weatherCondition),
+          maxTemperature: maxTemperature,
+          minTemperature: minTemperature,
+          date: date,
+        ),
+      _ => throw const FormatException(),
+    };
   }
 
   final WeatherCondition weatherCondition;
