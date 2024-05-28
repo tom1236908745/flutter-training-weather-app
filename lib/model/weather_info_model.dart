@@ -11,7 +11,8 @@ class WeatherInfoModel {
 
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
     // jsonデータ が存在しなかった場合に表示する共通の文言
-    final noJsonResponseMessage = json.isEmpty ? 'レスポンスデータが存在しません。\n' : '';
+    final noJsonResponseMessage =
+        json.isEmpty ? 'Response Json data does not exist.\n' : '';
 
     // `weather_condition` 用の例外処理
     final weatherCondition = WeatherCondition.from(
