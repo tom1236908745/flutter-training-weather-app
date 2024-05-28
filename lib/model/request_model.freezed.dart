@@ -14,10 +14,6 @@ T _$identity<T>(T value) => value;
 final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
-RequestModel _$RequestModelFromJson(Map<String, dynamic> json) {
-  return _RequestModel.fromJson(json);
-}
-
 /// @nodoc
 mixin _$RequestModel {
   String get area => throw _privateConstructorUsedError;
@@ -106,12 +102,9 @@ class __$$RequestModelImplCopyWithImpl<$Res>
 }
 
 /// @nodoc
-@JsonSerializable()
+@JsonSerializable(createFactory: false)
 class _$RequestModelImpl implements _RequestModel {
   const _$RequestModelImpl({required this.area, required this.date});
-
-  factory _$RequestModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RequestModelImplFromJson(json);
 
   @override
   final String area;
@@ -154,9 +147,6 @@ abstract class _RequestModel implements RequestModel {
   const factory _RequestModel(
       {required final String area,
       required final String date}) = _$RequestModelImpl;
-
-  factory _RequestModel.fromJson(Map<String, dynamic> json) =
-      _$RequestModelImpl.fromJson;
 
   @override
   String get area;
