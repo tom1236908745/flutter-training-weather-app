@@ -2,7 +2,6 @@ import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:freezed_annotation/freezed_annotation.dart';
 
 part 'weather_info_model.freezed.dart';
-part 'weather_info_model.g.dart';
 
 /// API・YumemiWeather から取得するデータ用のモデル層
 @freezed
