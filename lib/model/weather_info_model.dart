@@ -1,5 +1,7 @@
 import 'package:flutter_training/constant/weather_condition.dart';
-import 'package:flutter_training/model/throw_format_exception.dart';
+
+// `Exception` にスローする共通関数u
+Never _throwFormatException(String message) => throw FormatException(message);
 
 class WeatherInfoModel {
   WeatherInfoModel({
@@ -23,7 +25,7 @@ class WeatherInfoModel {
     // `max_temperature` 用の例外処理
     final maxTemperature = int.tryParse(json['max_temperature'].toString());
     if (maxTemperature == null) {
-      throwFormatException(
+      _throwFormatException(
         '''${noJsonResponseMessage}The "max_temperature" value must be numeric.''',
       );
     }
@@ -31,7 +33,7 @@ class WeatherInfoModel {
     // `min_temperature` 用の例外処理
     final minTemperature = int.tryParse(json['min_temperature'].toString());
     if (minTemperature == null) {
-      throwFormatException(
+      _throwFormatException(
         '''${noJsonResponseMessage}The "min_temperature" value must be numeric.''',
       );
     }
@@ -39,7 +41,7 @@ class WeatherInfoModel {
     // `date` 用の例外処理
     final date = DateTime.tryParse(json['date'].toString());
     if (date == null) {
-      throwFormatException(
+      _throwFormatException(
         '''${noJsonResponseMessage}The "date" value must be a string in ISO format.''',
       );
     }
