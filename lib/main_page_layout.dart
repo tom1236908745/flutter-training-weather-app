@@ -92,15 +92,13 @@ class _CenterPart extends ConsumerWidget {
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.red,
-                  temperature: weatherInfo?.maxTemperature ??
-                      initialString['temperature'],
+                  temperature: weatherInfo?.maxTemperature,
                 ),
               ),
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.blue,
-                  temperature: weatherInfo?.minTemperature ??
-                      initialString['temperature'],
+                  temperature: weatherInfo?.minTemperature,
                 ),
               ),
             ],
