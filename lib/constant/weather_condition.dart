@@ -6,12 +6,11 @@ enum WeatherCondition {
 
   factory WeatherCondition.from(
     String conditionName,
-    String? exceptionMessage,
   ) {
     return WeatherCondition.values.singleWhere(
       (element) => element.name == conditionName,
-      orElse: () => throw FormatException(
-        '''${exceptionMessage}The value of "weather_condition" must be included in the enum [WeatherCondition].''',
+      orElse: () => throw const FormatException(
+        '''The value of "weather_condition" must be included in the enum [WeatherCondition].''',
       ),
     );
   }

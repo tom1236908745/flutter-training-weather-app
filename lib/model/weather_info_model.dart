@@ -12,21 +12,20 @@ class WeatherInfoModel {
   });
 
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
-    // jsonデータ が存在しなかった場合に表示する共通の文言
-    final noJsonResponseMessage =
-        json.isEmpty ? 'Response Json data does not exist.\n' : '';
+    if (json.isEmpty) {
+      _throwFormatException('Response Json data does not exist.');
+    }
 
     // `weather_condition` 用の例外処理
     final weatherCondition = WeatherCondition.from(
       json['weather_condition'].toString(),
-      noJsonResponseMessage,
     );
 
     // `max_temperature` 用の例外処理
     final maxTemperature = int.tryParse(json['max_temperature'].toString());
     if (maxTemperature == null) {
       _throwFormatException(
-        '''${noJsonResponseMessage}The "max_temperature" value must be numeric.''',
+        '''The "max_temperature" value must be numeric.''',
       );
     }
 
@@ -34,7 +33,7 @@ class WeatherInfoModel {
     final minTemperature = int.tryParse(json['min_temperature'].toString());
     if (minTemperature == null) {
       _throwFormatException(
-        '''${noJsonResponseMessage}The "min_temperature" value must be numeric.''',
+        '''The "min_temperature" value must be numeric.''',
       );
     }
 
@@ -42,7 +41,7 @@ class WeatherInfoModel {
     final date = DateTime.tryParse(json['date'].toString());
     if (date == null) {
       _throwFormatException(
-        '''${noJsonResponseMessage}The "date" value must be a string in ISO format.''',
+        '''The "date" value must be a string in ISO format.''',
       );
     }
 
