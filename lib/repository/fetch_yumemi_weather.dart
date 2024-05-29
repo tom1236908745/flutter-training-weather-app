@@ -6,9 +6,6 @@ import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-/// 仮データ
-const jsonString = {'area': 'tokyo', 'date': '2020-04-01T12:00:00+09:00'};
-
 /// `Exception` • `Error` 系の文言の整形用に使用される共通関数
 String formatFetchFailureMessage<T>(T failureMessage) {
   return 'Failed to fetch.\nDetail: $failureMessage';
