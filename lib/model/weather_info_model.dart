@@ -16,12 +16,10 @@ class WeatherInfoModel {
       _throwFormatException('Response Json data does not exist.');
     }
 
-    // `weather_condition` 用の例外処理
     final weatherCondition = WeatherCondition.from(
       json['weather_condition'].toString(),
     );
 
-    // `max_temperature` 用の例外処理
     final maxTemperature = int.tryParse(json['max_temperature'].toString());
     if (maxTemperature == null) {
       _throwFormatException(
@@ -29,7 +27,6 @@ class WeatherInfoModel {
       );
     }
 
-    // `min_temperature` 用の例外処理
     final minTemperature = int.tryParse(json['min_temperature'].toString());
     if (minTemperature == null) {
       _throwFormatException(
@@ -37,7 +34,6 @@ class WeatherInfoModel {
       );
     }
 
-    // `date` 用の例外処理
     final date = DateTime.tryParse(json['date'].toString());
     if (date == null) {
       _throwFormatException(
