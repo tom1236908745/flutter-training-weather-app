@@ -1,6 +1,6 @@
 // GENERATED CODE - DO NOT MODIFY BY HAND
 
-// ignore_for_file: type=lint, duplicate_ignore
+// ignore_for_file: type=lint, unused_element, duplicate_ignore
 
 part of 'main_page_layout.dart';
 
@@ -9,7 +9,7 @@ part of 'main_page_layout.dart';
 // **************************************************************************
 
 String _$weatherInfoNotifierHash() =>
-    r'2d098e33516872ec3ff55214f13d5b23984c58ac';
+    r'f5e5440ca9bfabd3b647a8c4ae68c14ac7684e65';
 
 /// Copied from Dart SDK
 class _SystemHash {
