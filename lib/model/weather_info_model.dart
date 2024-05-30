@@ -1,6 +1,6 @@
 import 'package:flutter_training/constant/weather_condition.dart';
 
-// `Exception` にスローする共通関数
+/// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
 class WeatherInfoModel {
