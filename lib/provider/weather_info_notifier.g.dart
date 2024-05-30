@@ -2,7 +2,7 @@
 
 // ignore_for_file: type=lint, unused_element, duplicate_ignore
 
-part of 'main_page_layout.dart';
+part of 'weather_info_notifier.dart';
 
 // **************************************************************************
 // RiverpodGenerator
