@@ -6,8 +6,8 @@ import 'package:flutter_training/components/dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/provider/weather_info_notifier.dart';
-import 'package:flutter_training/repository/fetch_yumemi_weather.dart';
 import 'package:flutter_training/repository/result.dart';
+import 'package:flutter_training/repository/yumemi_weather_repository.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 
 /// 大枠のウィジェット
@@ -139,7 +139,8 @@ class _TextButtons extends ConsumerWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              final result = await fetchYumemiWeather();
+              final yumemiWeatherRepository = YumemiWeatherRepository();
+              final result = await yumemiWeatherRepository.fetchYumemiWeather();
 
               switch (result) {
                 // APIの取得に成功した場合
