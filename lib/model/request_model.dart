@@ -8,6 +8,6 @@ part 'request_model.g.dart';
 class RequestModel with _$RequestModel {
   const factory RequestModel({
     required String area,
-    required String date,
+    required DateTime date,
   }) = _RequestModel;
 }

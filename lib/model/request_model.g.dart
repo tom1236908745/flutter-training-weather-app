@@ -11,5 +11,5 @@ part of 'request_model.dart';
 Map<String, dynamic> _$$RequestModelImplToJson(_$RequestModelImpl instance) =>
     <String, dynamic>{
       'area': instance.area,
-      'date': instance.date,
+      'date': instance.date.toIso8601String(),
     };

@@ -17,7 +17,7 @@ final _privateConstructorUsedError = UnsupportedError(
 /// @nodoc
 mixin _$RequestModel {
   String get area => throw _privateConstructorUsedError;
-  String get date => throw _privateConstructorUsedError;
+  DateTime get date => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -31,7 +31,7 @@ abstract class $RequestModelCopyWith<$Res> {
           RequestModel value, $Res Function(RequestModel) then) =
       _$RequestModelCopyWithImpl<$Res, RequestModel>;
   @useResult
-  $Res call({String area, String date});
+  $Res call({String area, DateTime date});
 }
 
 /// @nodoc
@@ -58,7 +58,7 @@ class _$RequestModelCopyWithImpl<$Res, $Val extends RequestModel>
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
     ) as $Val);
   }
 }
@@ -71,7 +71,7 @@ abstract class _$$RequestModelImplCopyWith<$Res>
       __$$RequestModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String area, String date});
+  $Res call({String area, DateTime date});
 }
 
 /// @nodoc
@@ -96,7 +96,7 @@ class __$$RequestModelImplCopyWithImpl<$Res>
       date: null == date
           ? _value.date
           : date // ignore: cast_nullable_to_non_nullable
-              as String,
+              as DateTime,
     ));
   }
 }
@@ -109,7 +109,7 @@ class _$RequestModelImpl implements _RequestModel {
   @override
   final String area;
   @override
-  final String date;
+  final DateTime date;
 
   @override
   String toString() {
@@ -146,12 +146,12 @@ class _$RequestModelImpl implements _RequestModel {
 abstract class _RequestModel implements RequestModel {
   const factory _RequestModel(
       {required final String area,
-      required final String date}) = _$RequestModelImpl;
+      required final DateTime date}) = _$RequestModelImpl;
 
   @override
   String get area;
   @override
-  String get date;
+  DateTime get date;
   @override
   @JsonKey(ignore: true)
   _$$RequestModelImplCopyWith<_$RequestModelImpl> get copyWith =>

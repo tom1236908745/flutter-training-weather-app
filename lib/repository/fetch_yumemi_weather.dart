@@ -14,8 +14,8 @@ String formatFetchFailureMessage<T>(T failureMessage) {
 /// API・`YumemiWeather` で使用する `Repository` 用の関数
 Future<Result<WeatherInfo>> fetchYumemiWeather() async {
   try {
-    const requestData =
-        RequestModel(area: 'tokyo', date: '2020-04-01T12:00:00+09:00');
+    final date = DateTime.parse('2020-04-01T12:00:00+09:00');
+    final requestData = RequestModel(area: 'tokyo', date: date);
 
     final weatherResponse =
         YumemiWeather().fetchWeather(jsonEncode(requestData.toJson()));
