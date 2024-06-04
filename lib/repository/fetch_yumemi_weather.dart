@@ -1,16 +1,10 @@
 import 'dart:convert';
 
+import 'package:flutter_training/model/request_model.dart';
 import 'package:flutter_training/model/weather_info_model.dart';
 import 'package:flutter_training/repository/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
-
-/// 仮データ
-const jsonString = '''
-{
-    "area": "tokyo",
-    "date": "2020-04-01T12:00:00+09:00"
-}''';
 
 /// `Exception` • `Error` 系の文言の整形用に使用される共通関数
 String formatFetchFailureMessage<T>(T failureMessage) {
@@ -20,7 +14,11 @@ String formatFetchFailureMessage<T>(T failureMessage) {
 /// API・`YumemiWeather` で使用する `Repository` 用の関数
 Future<Result<WeatherInfo>> fetchYumemiWeather() async {
   try {
-    final weatherResponse = YumemiWeather().fetchWeather(jsonString);
+    final date = DateTime.parse('2020-04-01T12:00:00+09:00');
+    final requestData = RequestModel(area: 'tokyo', date: date);
+
+    final weatherResponse =
+        YumemiWeather().fetchWeather(jsonEncode(requestData.toJson()));
     final weatherInfoModel = WeatherInfoModel.fromJson(
       jsonDecode(weatherResponse) as Map<String, dynamic>,
     );

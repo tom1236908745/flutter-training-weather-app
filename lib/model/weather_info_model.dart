@@ -1,16 +1,22 @@
 import 'package:flutter_training/constant/weather_condition.dart';
+import 'package:freezed_annotation/freezed_annotation.dart';
+
+part 'weather_info_model.freezed.dart';
 
 /// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
-class WeatherInfoModel {
-  WeatherInfoModel({
-    required this.weatherCondition,
-    required this.maxTemperature,
-    required this.minTemperature,
-    required this.date,
-  });
+/// API・YumemiWeather から取得するデータ用のモデル層
+@freezed
+class WeatherInfoModel with _$WeatherInfoModel {
+  const factory WeatherInfoModel({
+    required WeatherCondition weatherCondition,
+    required int maxTemperature,
+    required int minTemperature,
+    required DateTime date,
+  }) = _WeatherCondition;
 
+  @override
   factory WeatherInfoModel.fromJson(Map<String, dynamic> json) {
     if (json.isEmpty) {
       _throwFormatException('Response Json data does not exist.');
@@ -48,9 +54,4 @@ class WeatherInfoModel {
       date: date,
     );
   }
-
-  final WeatherCondition weatherCondition;
-  final int maxTemperature;
-  final int minTemperature;
-  final DateTime date;
 }
