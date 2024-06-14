@@ -6,7 +6,7 @@ part 'weather_info_model.freezed.dart';
 /// `FormatException` をスローする共通関数
 Never _throwFormatException(String message) => throw FormatException(message);
 
-/// API・YumemiWeather から取得するデータ用のモデル層
+/// API・YumemiWeather から取得するデータに対応するのモデル層のクラス
 @freezed
 class WeatherInfoModel with _$WeatherInfoModel {
   const factory WeatherInfoModel({
