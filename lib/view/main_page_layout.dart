@@ -2,13 +2,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
-import 'package:flutter_training/components/dialog/error_message_dialog.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
-import 'package:flutter_training/provider/weather_info_notifier.dart';
-import 'package:flutter_training/repository/result.dart';
-import 'package:flutter_training/repository/yumemi_weather_repository.dart';
-import 'package:flutter_training/view_model/weather_info.dart';
+import 'package:flutter_training/view/components/dialog/error_message_dialog.dart';
+import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
 /// 大枠のウィジェット
 class MainPageLayout extends StatelessWidget {
@@ -63,13 +60,25 @@ class _CenterPart extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final weatherInfo = ref.watch(weatherInfoNotifierProvider(null));
+    WeatherCondition? weatherCondition;
+    int? maxTemperature;
+    int? minTemperature;
+
+    final result = ref.watch(weatherInfoNotifierProvider);
+    switch (result) {
+      case AsyncData(:final value):
+        weatherCondition = value?.weatherCondition;
+        maxTemperature = value?.maxTemperature;
+        minTemperature = value?.minTemperature;
+      default:
+        break;
+    }
     return Column(
       children: <Widget>[
         AspectRatio(
           aspectRatio: 1,
-          child: convertSvgWeatherImage(weatherInfo?.weatherCondition) ??
-              const Placeholder(),
+          child:
+              convertSvgWeatherImage(weatherCondition) ?? const Placeholder(),
         ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
@@ -78,13 +87,13 @@ class _CenterPart extends ConsumerWidget {
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.red,
-                  temperature: weatherInfo?.maxTemperature,
+                  temperature: maxTemperature,
                 ),
               ),
               Expanded(
                 child: _TemperatureText(
                   textColor: Colors.blue,
-                  temperature: weatherInfo?.minTemperature,
+                  temperature: minTemperature,
                 ),
               ),
             ],
@@ -124,7 +133,6 @@ class _TextButtons extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    final infoNotifier = ref.read(weatherInfoNotifierProvider(null).notifier);
     return Row(
       children: <Widget>[
         Expanded(
@@ -139,21 +147,21 @@ class _TextButtons extends ConsumerWidget {
         Expanded(
           child: TextButton(
             onPressed: () async {
-              final yumemiWeatherRepository = YumemiWeatherRepository();
-              final result = await yumemiWeatherRepository.fetchYumemiWeather();
+              await ref
+                  .read(weatherInfoNotifierProvider.notifier)
+                  .fetchWeather();
+              final result = ref.read(weatherInfoNotifierProvider);
 
               switch (result) {
-                // APIの取得に成功した場合
-                case Success<WeatherInfo>():
-                  await infoNotifier.update(result.value);
-                // APIの取得に失敗した場合
-                case Failure<WeatherInfo>():
+                case AsyncError(:final error):
                   if (context.mounted) {
                     await showErrorDialog(
                       context,
-                      result.error,
+                      error.toString(),
                     );
                   }
+                default:
+                  break;
               }
             },
             child: const Text('Reload'),
