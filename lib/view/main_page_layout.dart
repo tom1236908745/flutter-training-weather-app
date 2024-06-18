@@ -4,6 +4,7 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
+import 'package:flutter_training/utils/extensions/failure_message.dart';
 import 'package:flutter_training/view/components/dialog/error_message_dialog.dart';
 import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
@@ -153,12 +154,9 @@ class _TextButtons extends ConsumerWidget {
               final result = ref.read(weatherInfoNotifierProvider);
 
               switch (result) {
-                case AsyncError(:final error):
+                case AsyncError(:final FailureMessage error):
                   if (context.mounted) {
-                    await showErrorDialog(
-                      context,
-                      error.toString(),
-                    );
+                    await showErrorDialog(context, error);
                   }
                 default:
                   break;

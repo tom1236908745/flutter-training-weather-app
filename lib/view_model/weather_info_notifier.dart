@@ -1,8 +1,8 @@
 import 'package:flutter_training/repository/weather_repository.dart';
 import 'package:flutter_training/repository/weather_repository_provider.dart';
+import 'package:flutter_training/utils/exception.dart';
 import 'package:flutter_training/utils/extensions/failure_message.dart';
 import 'package:flutter_training/utils/result.dart';
-import 'package:flutter_training/view_model/failure_view_model.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
 
@@ -40,11 +40,23 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
       // APIの取得に失敗した場合
       case Failure():
         state = AsyncValue.error(
-          FailureViewModel(
-            failureMessage: FailureMessage(result.value.failureMessage),
+          FailureMessage(
+            formatFetchFailureMessage(
+              convertExceptionMessage(result.value.exception),
+            ),
           ),
           result.value.stackTrace,
         );
     }
+  }
+}
+
+extension WeatherInfoNotifierExtension on WeatherInfoNotifier {
+  String convertExceptionMessage(AppException exception) {
+    return switch (exception) {
+      UnknownException() => 'An error has occurred.',
+      RequestFailedException() => 'Request Failed!\n Unable to process your '
+          'request appropriately.'
+    };
   }
 }

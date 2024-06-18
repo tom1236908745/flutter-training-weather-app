@@ -1,14 +1,13 @@
 import 'dart:convert';
 import 'package:flutter_training/model/request_model.dart';
 import 'package:flutter_training/model/weather_info_model.dart';
-import 'package:flutter_training/repository/failure_repository.dart';
-import 'package:flutter_training/utils/extensions/failure_message.dart';
+import 'package:flutter_training/utils/exception.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
 /// `Exception` • `Error` 系の文言の整形用に使用される共通関数
 String formatFetchFailureMessage<T>(T failureMessage) {
-  return 'Failed to fetch.\nDetail: $failureMessage';
+  return '''$failureMessage\nPlease contact our support center for assistance.''';
 }
 
 /// `YumemiWeather` の `fetchWeather` を実行
@@ -19,7 +18,10 @@ class WeatherRepository {
   final YumemiWeather _weatherApi;
 
   /// API・`YumemiWeather` で使用する `Repository` 用の関数
-  Future<Result<WeatherInfoModel, FailureRepository>> fetchWeather() async {
+  Future<
+          Result<WeatherInfoModel,
+              ({AppException exception, StackTrace stackTrace})>>
+      fetchWeather() async {
     try {
       final requestData = RequestModel(
         area: 'tokyo',
@@ -34,29 +36,28 @@ class WeatherRepository {
       return Success(
         weatherInfoModel,
       );
-    } on FormatException catch (formatException, stackTrace) {
+    } on FormatException catch (_, stackTrace) {
       return Failure(
-        FailureRepository(
-          failureMessage:
-              FailureMessage(formatFetchFailureMessage(formatException)),
+        (
+          exception: UnknownException(),
           stackTrace: stackTrace,
         ),
       );
-    } on Exception catch (exception, stackTrace) {
+    } on Exception catch (_, stackTrace) {
       return Failure(
-        FailureRepository(
-          failureMessage: FailureMessage(
-            formatFetchFailureMessage(exception),
-          ),
+        (
+          exception: UnknownException(),
           stackTrace: stackTrace,
         ),
       );
     } on YumemiWeatherError catch (error, stackTrace) {
+      final exception = switch (error) {
+        YumemiWeatherError.unknown => UnknownException(),
+        YumemiWeatherError.invalidParameter => RequestFailedException(),
+      };
       return Failure(
-        FailureRepository(
-          failureMessage: FailureMessage(
-            formatFetchFailureMessage(error),
-          ),
+        (
+          exception: exception,
           stackTrace: stackTrace,
         ),
       );
