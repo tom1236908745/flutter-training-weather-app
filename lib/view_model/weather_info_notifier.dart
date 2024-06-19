@@ -8,9 +8,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weather_info_notifier.g.dart';
 
-/// `Exception` • `Error` 系の文言の整形用に使用される共通関数
-String _formatFetchFailureMessage<T>(T failureMessage) {
-  return '''$failureMessage\nPlease contact our support center for assistance.''';
+/// エラー用の文言を整形するための共通関数
+String _formatFetchFailureMessage(FailureMessage failureMessage) {
+  return FailureMessage(
+    '''$failureMessage\nPlease contact our support center for assistance.''',
+  );
 }
 
 @riverpod
@@ -45,10 +47,8 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
       // APIの取得に失敗した場合
       case Failure():
         state = AsyncValue.error(
-          FailureMessage(
-            _formatFetchFailureMessage(
-              convertExceptionMessage(result.value.exception),
-            ),
+          _formatFetchFailureMessage(
+            convertExceptionMessage(result.value.exception),
           ),
           result.value.stackTrace,
         );
@@ -57,11 +57,12 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
 }
 
 extension WeatherInfoNotifierExtension on WeatherInfoNotifier {
-  String convertExceptionMessage(AppException exception) {
+  FailureMessage convertExceptionMessage(AppException exception) {
     return switch (exception) {
-      UnknownException() => 'An error has occurred.',
-      RequestFailedException() => 'Request Failed!\n Unable to process your '
-          'request appropriately.'
+      UnknownException() => FailureMessage('An error has occurred.'),
+      RequestFailedException() =>
+        FailureMessage('Request Failed!\n Unable to process your '
+            'request appropriately.')
     };
   }
 }

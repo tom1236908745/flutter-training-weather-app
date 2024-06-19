@@ -11,6 +11,6 @@ WeatherRepository weatherRepository(
 ) {
   final yumemiWeather = YumemiWeather();
 
-  // `WeatherRepository` に対して `yumemiWeather` の依存性注入
+  // `WeatherRepository` に対して `yumemiWeather` の依存性を注入
   return WeatherRepository(weatherApi: yumemiWeather);
 }
