@@ -5,11 +5,6 @@ import 'package:flutter_training/utils/exception.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-/// `Exception` • `Error` 系の文言の整形用に使用される共通関数
-String formatFetchFailureMessage<T>(T failureMessage) {
-  return '''$failureMessage\nPlease contact our support center for assistance.''';
-}
-
 /// `YumemiWeather` の `fetchWeather` を実行
 class WeatherRepository {
   WeatherRepository({required YumemiWeather weatherApi})

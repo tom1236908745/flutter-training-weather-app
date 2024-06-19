@@ -8,6 +8,11 @@ import 'package:riverpod_annotation/riverpod_annotation.dart';
 
 part 'weather_info_notifier.g.dart';
 
+/// `Exception` • `Error` 系の文言の整形用に使用される共通関数
+String _formatFetchFailureMessage<T>(T failureMessage) {
+  return '''$failureMessage\nPlease contact our support center for assistance.''';
+}
+
 @riverpod
 
 /// API・YumemiWeather から取得するデータ用のビューモデル層
@@ -41,7 +46,7 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
       case Failure():
         state = AsyncValue.error(
           FailureMessage(
-            formatFetchFailureMessage(
+            _formatFetchFailureMessage(
               convertExceptionMessage(result.value.exception),
             ),
           ),
