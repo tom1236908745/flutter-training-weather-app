@@ -1,9 +1,12 @@
 # https://pub.dev/packages/yumemi_lints
 include: package:yumemi_lints/flutter/3.19.0/recommended.yaml
 
-# `freezed` と `json_serializable` を組み合わせて使用する際の、
-# 無効な位置に置かれているアノテーションへの警告表示を無視
-# ref: https://pub.dev/packages/freezed#disabling-invalid_annotation_target-warning-and-warning-in-generates-files
 analyzer:
+  # `riverpod_lint` を使用するための設定
+  plugins:
+    - custom_lint
+  # `freezed` と `json_serializable` を組み合わせて使用する際の、
+  # 無効な位置に置かれているアノテーションへの警告表示を無視
+  # ref: https://pub.dev/packages/freezed#disabling-invalid_annotation_target-warning-and-warning-in-generates-files
   errors:
     invalid_annotation_target: ignore

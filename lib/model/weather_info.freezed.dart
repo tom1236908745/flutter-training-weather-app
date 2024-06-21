@@ -3,7 +3,7 @@
 // ignore_for_file: type=lint
 // ignore_for_file: unused_element, deprecated_member_use, deprecated_member_use_from_same_package, use_function_type_syntax_for_parameters, unnecessary_const, avoid_init_to_null, invalid_override_different_default_values_named, prefer_expression_function_bodies, annotate_overrides, invalid_annotation_target, unnecessary_question_mark
 
-part of 'weather_info_model.dart';
+part of 'weather_info.dart';
 
 // **************************************************************************
 // FreezedGenerator
@@ -15,22 +15,22 @@ final _privateConstructorUsedError = UnsupportedError(
     'It seems like you constructed your class using `MyClass._()`. This constructor is only meant to be used by freezed and you are not supposed to need it nor use it.\nPlease check the documentation here for more information: https://github.com/rrousselGit/freezed#adding-getters-and-methods-to-our-models');
 
 /// @nodoc
-mixin _$WeatherInfoModel {
+mixin _$WeatherInfo {
   WeatherCondition get weatherCondition => throw _privateConstructorUsedError;
   int get maxTemperature => throw _privateConstructorUsedError;
   int get minTemperature => throw _privateConstructorUsedError;
   DateTime get date => throw _privateConstructorUsedError;
 
   @JsonKey(ignore: true)
-  $WeatherInfoModelCopyWith<WeatherInfoModel> get copyWith =>
+  $WeatherInfoCopyWith<WeatherInfo> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $WeatherInfoModelCopyWith<$Res> {
-  factory $WeatherInfoModelCopyWith(
-          WeatherInfoModel value, $Res Function(WeatherInfoModel) then) =
-      _$WeatherInfoModelCopyWithImpl<$Res, WeatherInfoModel>;
+abstract class $WeatherInfoCopyWith<$Res> {
+  factory $WeatherInfoCopyWith(
+          WeatherInfo value, $Res Function(WeatherInfo) then) =
+      _$WeatherInfoCopyWithImpl<$Res, WeatherInfo>;
   @useResult
   $Res call(
       {WeatherCondition weatherCondition,
@@ -40,9 +40,9 @@ abstract class $WeatherInfoModelCopyWith<$Res> {
 }
 
 /// @nodoc
-class _$WeatherInfoModelCopyWithImpl<$Res, $Val extends WeatherInfoModel>
-    implements $WeatherInfoModelCopyWith<$Res> {
-  _$WeatherInfoModelCopyWithImpl(this._value, this._then);
+class _$WeatherInfoCopyWithImpl<$Res, $Val extends WeatherInfo>
+    implements $WeatherInfoCopyWith<$Res> {
+  _$WeatherInfoCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -80,7 +80,7 @@ class _$WeatherInfoModelCopyWithImpl<$Res, $Val extends WeatherInfoModel>
 
 /// @nodoc
 abstract class _$$WeatherConditionImplCopyWith<$Res>
-    implements $WeatherInfoModelCopyWith<$Res> {
+    implements $WeatherInfoCopyWith<$Res> {
   factory _$$WeatherConditionImplCopyWith(_$WeatherConditionImpl value,
           $Res Function(_$WeatherConditionImpl) then) =
       __$$WeatherConditionImplCopyWithImpl<$Res>;
@@ -95,7 +95,7 @@ abstract class _$$WeatherConditionImplCopyWith<$Res>
 
 /// @nodoc
 class __$$WeatherConditionImplCopyWithImpl<$Res>
-    extends _$WeatherInfoModelCopyWithImpl<$Res, _$WeatherConditionImpl>
+    extends _$WeatherInfoCopyWithImpl<$Res, _$WeatherConditionImpl>
     implements _$$WeatherConditionImplCopyWith<$Res> {
   __$$WeatherConditionImplCopyWithImpl(_$WeatherConditionImpl _value,
       $Res Function(_$WeatherConditionImpl) _then)
@@ -150,7 +150,7 @@ class _$WeatherConditionImpl implements _WeatherCondition {
 
   @override
   String toString() {
-    return 'WeatherInfoModel(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
+    return 'WeatherInfo(weatherCondition: $weatherCondition, maxTemperature: $maxTemperature, minTemperature: $minTemperature, date: $date)';
   }
 
   @override
@@ -179,7 +179,7 @@ class _$WeatherConditionImpl implements _WeatherCondition {
           this, _$identity);
 }
 
-abstract class _WeatherCondition implements WeatherInfoModel {
+abstract class _WeatherCondition implements WeatherInfo {
   const factory _WeatherCondition(
       {required final WeatherCondition weatherCondition,
       required final int maxTemperature,

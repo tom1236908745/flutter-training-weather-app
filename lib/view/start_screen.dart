@@ -1,7 +1,7 @@
 import 'dart:async';
 
 import 'package:flutter/material.dart';
-import 'package:flutter_training/main_page_layout.dart';
+import 'package:flutter_training/view/main_page_layout.dart';
 
 /// 初期画面描画用ウィジェット
 class StartScreen extends StatefulWidget {

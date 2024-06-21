@@ -1,13 +1,13 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
 
-part 'request_model.freezed.dart';
-part 'request_model.g.dart';
+part 'request.freezed.dart';
+part 'request.g.dart';
 
 /// API・YumemiWeather にリクエストするデータ用のモデル層
 @Freezed(toJson: true)
-class RequestModel with _$RequestModel {
-  const factory RequestModel({
+class Request with _$Request {
+  const factory Request({
     required String area,
     required DateTime date,
-  }) = _RequestModel;
+  }) = _Request;
 }
