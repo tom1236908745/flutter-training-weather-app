@@ -9,7 +9,7 @@ part of 'weather_info_notifier.dart';
 // **************************************************************************
 
 String _$weatherInfoNotifierHash() =>
-    r'826ee281703fa8ad991ea1c2c0bcc2c25ba432fe';
+    r'99b8357b8ad180fb646002e40421d20980ddd0e4';
 
 /// API・YumemiWeather から取得するデータ用のビューモデル層
 ///

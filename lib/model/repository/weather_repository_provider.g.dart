@@ -10,9 +10,7 @@ part of 'weather_repository_provider.dart';
 
 String _$weatherRepositoryHash() => r'ea33e003303e5a59283b1c33a0af4edae6f027ff';
 
-/// `WeatherRepository` のインスタンスを生成
-///
-/// Copied from [weatherRepository].
+/// See also [weatherRepository].
 @ProviderFor(weatherRepository)
 final weatherRepositoryProvider =
     AutoDisposeProvider<WeatherRepository>.internal(
