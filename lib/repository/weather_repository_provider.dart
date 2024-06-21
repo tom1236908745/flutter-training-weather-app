@@ -4,7 +4,6 @@ import 'package:yumemi_weather/yumemi_weather.dart';
 
 part 'weather_repository_provider.g.dart';
 
-/// `WeatherRepository` のインスタンスを生成
 @riverpod
 WeatherRepository weatherRepository(
   WeatherRepositoryRef ref,
