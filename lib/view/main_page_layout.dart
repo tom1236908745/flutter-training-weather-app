@@ -61,19 +61,12 @@ class _CenterPart extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    WeatherCondition? weatherCondition;
-    int? maxTemperature;
-    int? minTemperature;
-
-    final result = ref.watch(weatherInfoNotifierProvider);
-    switch (result) {
-      case AsyncData(:final value):
-        weatherCondition = value?.weatherCondition;
-        maxTemperature = value?.maxTemperature;
-        minTemperature = value?.minTemperature;
-      default:
-        break;
-    }
+    final weatherInfo = ref.watch(
+      weatherInfoNotifierProvider.select((data) => data.valueOrNull),
+    );
+    final weatherCondition = weatherInfo?.weatherCondition;
+    final maxTemperature = weatherInfo?.maxTemperature;
+    final minTemperature = weatherInfo?.minTemperature;
     return Column(
       children: <Widget>[
         AspectRatio(
