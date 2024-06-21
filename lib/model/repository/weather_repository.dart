@@ -1,7 +1,7 @@
 import 'dart:convert';
+import 'package:flutter_training/model/exception.dart';
 import 'package:flutter_training/model/request.dart';
 import 'package:flutter_training/model/weather_info.dart';
-import 'package:flutter_training/utils/exception.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
