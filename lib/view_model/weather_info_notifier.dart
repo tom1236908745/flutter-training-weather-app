@@ -1,7 +1,7 @@
 import 'package:flutter_training/repository/weather_repository.dart';
 import 'package:flutter_training/repository/weather_repository_provider.dart';
 import 'package:flutter_training/utils/exception.dart';
-import 'package:flutter_training/utils/extensions/failure_message.dart';
+import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:flutter_training/view_model/weather_info.dart';
 import 'package:riverpod_annotation/riverpod_annotation.dart';
