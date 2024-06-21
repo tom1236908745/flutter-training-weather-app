@@ -4,8 +4,8 @@ import 'package:flutter_svg/flutter_svg.dart';
 import 'package:flutter_svg/svg.dart';
 import 'package:flutter_training/constant/weather_condition.dart';
 import 'package:flutter_training/gen/assets.gen.dart';
-import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/view/components/dialog/error_message_dialog.dart';
+import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
 /// 大枠のウィジェット
