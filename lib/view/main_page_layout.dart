@@ -134,6 +134,16 @@ class _TextButtons extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
+    ref.listen(weatherInfoNotifierProvider, (pre, next) async {
+      switch (next) {
+        case AsyncError(:final FailureMessage error):
+          if (context.mounted) {
+            await showErrorDialog(context, error);
+          }
+        default:
+          break;
+      }
+    });
     return Row(
       children: <Widget>[
         Expanded(
@@ -151,16 +161,6 @@ class _TextButtons extends ConsumerWidget {
               await ref
                   .read(weatherInfoNotifierProvider.notifier)
                   .fetchWeather();
-              final result = ref.read(weatherInfoNotifierProvider);
-
-              switch (result) {
-                case AsyncError(:final FailureMessage error):
-                  if (context.mounted) {
-                    await showErrorDialog(context, error);
-                  }
-                default:
-                  break;
-              }
             },
             child: const Text('Reload'),
           ),
