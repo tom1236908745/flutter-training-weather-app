@@ -5,7 +5,6 @@ import 'package:flutter_training/utils/exception.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:yumemi_weather/yumemi_weather.dart';
 
-/// `YumemiWeather` の `fetchWeather` を実行
 class WeatherRepository {
   WeatherRepository({required YumemiWeather weatherApi})
       : _weatherApi = weatherApi;
