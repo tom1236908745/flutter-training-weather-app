@@ -14,10 +14,10 @@ typedef _FailureValue = ({AppException exception, StackTrace stackTrace});
 
 @GenerateNiceMocks([MockSpec<YumemiWeather>()])
 void main() {
-  late MockYumemiWeather mockYumemiWeather;
+  final mockYumemiWeather = MockYumemiWeather();
 
-  setUp(() {
-    mockYumemiWeather = MockYumemiWeather();
+  tearDown(() {
+    reset(mockYumemiWeather);
   });
 
   group(
