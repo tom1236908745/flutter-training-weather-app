@@ -14,21 +14,21 @@ class MainPageLayout extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Scaffold(
+    return const Scaffold(
       body: Center(
         child: FractionallySizedBox(
           widthFactor: 0.5,
           child: Column(
             children: <Widget>[
-              const Spacer(),
-              _CenterPart(),
+              Spacer(),
+              CenterPart(),
               Expanded(
                 child: Column(
                   children: <Widget>[
-                    const SizedBox(
+                    SizedBox(
                       height: 80,
                     ),
-                    _TextButtons(),
+                    TextButtons(),
                   ],
                 ),
               ),
@@ -55,7 +55,9 @@ SvgPicture? convertSvgWeatherImage(WeatherCondition? weatherCondition) {
 }
 
 /// 中央部分のウィジェット
-class _CenterPart extends ConsumerWidget {
+class CenterPart extends ConsumerWidget {
+  const CenterPart({super.key});
+
   @override
   Widget build(
     BuildContext context,
@@ -67,25 +69,29 @@ class _CenterPart extends ConsumerWidget {
     final weatherCondition = weatherInfo?.weatherCondition;
     final maxTemperature = weatherInfo?.maxTemperature;
     final minTemperature = weatherInfo?.minTemperature;
+    // return const Text('aa');
     return Column(
       children: <Widget>[
-        AspectRatio(
-          aspectRatio: 1,
-          child:
-              convertSvgWeatherImage(weatherCondition) ?? const Placeholder(),
-        ),
+        // TODO: 後で解決する
+        // SizedBox(
+        //   child: AspectRatio(
+        //     aspectRatio: 1,
+        //     child:
+        //         convertSvgWeatherImage(weatherCondition) ?? const Placeholder(),
+        //   ),
+        // ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(
             children: <Widget>[
               Expanded(
-                child: _TemperatureText(
+                child: TemperatureText(
                   textColor: Colors.red,
                   temperature: maxTemperature,
                 ),
               ),
               Expanded(
-                child: _TemperatureText(
+                child: TemperatureText(
                   textColor: Colors.blue,
                   temperature: minTemperature,
                 ),
@@ -99,10 +105,11 @@ class _CenterPart extends ConsumerWidget {
 }
 
 /// 温度の表示用ウィジェット
-class _TemperatureText extends StatelessWidget {
-  _TemperatureText({
+class TemperatureText extends StatelessWidget {
+  TemperatureText({
     required Color textColor,
     required int? temperature,
+    super.key,
   })  : _textColor = textColor,
         _temperature = temperature != null ? temperature.toString() : '**';
 
@@ -121,7 +128,9 @@ class _TemperatureText extends StatelessWidget {
 }
 
 /// 並列に並ぶテキストボタンの箇所ウィジェット
-class _TextButtons extends ConsumerWidget {
+class TextButtons extends ConsumerWidget {
+  const TextButtons({super.key});
+
   @override
   Widget build(
     BuildContext context,
