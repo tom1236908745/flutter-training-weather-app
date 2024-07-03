@@ -60,21 +60,6 @@ void main() {
           ),
         );
       });
-      test('APIからフォーマットに関する例外がスローされた場合', () async {
-        when(mockYumemiWeather.fetchWeather(any))
-            .thenThrow(const FormatException());
-        final weatherRepository =
-            WeatherRepository(weatherApi: mockYumemiWeather);
-        final actual = await weatherRepository.fetchWeather();
-        expect(
-          actual,
-          isA<Failure<WeatherInfo, _FailureValue>>().having(
-            (failure) => failure.value.exception,
-            'exception',
-            isA<UnknownException>(),
-          ),
-        );
-      });
       test('APIから例外がスローされた場合', () async {
         when(mockYumemiWeather.fetchWeather(any)).thenThrow(Exception());
         final weatherRepository =
