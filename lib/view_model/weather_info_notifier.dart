@@ -61,7 +61,7 @@ extension WeatherInfoNotifierExtension on WeatherInfoNotifier {
     return switch (exception) {
       UnknownException() => FailureMessage('An error has occurred.'),
       RequestFailedException() =>
-        FailureMessage('Request Failed!\n Unable to process your '
+        FailureMessage('Request Failed!\nUnable to process your '
             'request appropriately.')
     };
   }
