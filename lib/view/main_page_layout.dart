@@ -8,33 +8,66 @@ import 'package:flutter_training/view/components/dialog/error_message_dialog.dar
 import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
-/// 大枠のウィジェット
-class MainPageLayout extends StatelessWidget {
+class MainPageLayout extends ConsumerStatefulWidget {
   const MainPageLayout({super.key});
 
   @override
+  MainPageLayoutState createState() => MainPageLayoutState();
+}
+
+/// 大枠のウィジェット
+class MainPageLayoutState extends ConsumerState<MainPageLayout> {
+  bool _isLoading = false;
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.5,
-          child: Column(
-            children: <Widget>[
-              const Spacer(),
-              _CenterPart(),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    _TextButtons(),
-                  ],
-                ),
+    ref.listen(weatherInfoNotifierProvider, (pre, next) async {
+      switch (next) {
+        case AsyncLoading():
+          setState(() {
+            _isLoading = true;
+          });
+        case AsyncError(:final FailureMessage error):
+          setState(() {
+            _isLoading = false;
+          });
+          if (context.mounted) {
+            await showErrorDialog(context, error);
+          }
+        default:
+          setState(() {
+            _isLoading = false;
+          });
+      }
+    });
+    final mainPage = Center(
+      child: FractionallySizedBox(
+        widthFactor: 0.5,
+        child: Column(
+          children: <Widget>[
+            const Spacer(),
+            _CenterPart(),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  _TextButtons(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+    return Scaffold(
+      body: Stack(
+        children: [
+          if (!_isLoading)
+            mainPage
+          else
+            const Center(child: CircularProgressIndicator()),
+        ],
       ),
     );
   }
