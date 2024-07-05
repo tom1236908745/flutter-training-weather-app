@@ -72,14 +72,11 @@ class CenterPart extends ConsumerWidget {
     // return const Text('aa');
     return Column(
       children: <Widget>[
-        // TODO: 後で解決する
-        // SizedBox(
-        //   child: AspectRatio(
-        //     aspectRatio: 1,
-        //     child:
-        //         convertSvgWeatherImage(weatherCondition) ?? const Placeholder(),
-        //   ),
-        // ),
+        AspectRatio(
+          aspectRatio: 1,
+          child:
+              convertSvgWeatherImage(weatherCondition) ?? const Placeholder(),
+        ),
         Padding(
           padding: const EdgeInsets.symmetric(vertical: 16),
           child: Row(
