@@ -63,10 +63,14 @@ class MainPageLayoutState extends ConsumerState<MainPageLayout> {
     return Scaffold(
       body: Stack(
         children: [
-          if (!_isLoading)
-            mainPage
-          else
-            const Center(child: CircularProgressIndicator()),
+          mainPage,
+          if (_isLoading)
+            const ColoredBox(
+              color: Colors.black54,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
         ],
       ),
     );
@@ -160,16 +164,6 @@ class _TextButtons extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    ref.listen(weatherInfoNotifierProvider, (pre, next) async {
-      switch (next) {
-        case AsyncError(:final FailureMessage error):
-          if (context.mounted) {
-            await showErrorDialog(context, error);
-          }
-        default:
-          break;
-      }
-    });
     return Row(
       children: <Widget>[
         Expanded(
