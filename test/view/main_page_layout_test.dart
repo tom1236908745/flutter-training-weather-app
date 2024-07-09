@@ -18,12 +18,13 @@ import 'main_page_layout_test.mocks.dart';
 
 typedef _FailureValue = ({AppException exception, StackTrace stackTrace});
 
-/// 共通の初期化関数
-void _setUpScreenSize(WidgetTester tester) {
+/// 共通の画面設定値に関する初期化処理
+void _setUpScreen(WidgetTester tester) {
   final view = tester.view;
+  // このアプリでは動作を保証する画面設定値が定まっていない。
+  // そのため、これまで動作確認していた下記の画面設定値を検証端末として設定する。
+  // iPhone 14 Pro Max の画面設定値
   view.devicePixelRatio = 3;
-  // AspectRation ウィジェットに対応するサイズにするため
-  // iPhone 14 Pro Max のスクリーンサイズを参考
   view.physicalSize = const Size(1284, 2778);
 }
 
@@ -54,7 +55,7 @@ void main() {
   group('APIから取得したデータの表示', () {
     group('正常系', () {
       testWidgets('初期画面', (tester) async {
-        _setUpScreenSize(tester);
+        _setUpScreen(tester);
         final response =
             Future<Success<model.WeatherInfo, _FailureValue>>.value(
           commonSuccessObject,
@@ -83,7 +84,7 @@ void main() {
         expect(defaultPlaceholderFinder, findsOneWidget);
       });
       testWidgets('温度データの表示', (tester) async {
-        _setUpScreenSize(tester);
+        _setUpScreen(tester);
         final response =
             Future<Success<model.WeatherInfo, _FailureValue>>.value(
           commonSuccessObject,
@@ -119,7 +120,7 @@ void main() {
         expect(minTemperatureTextFinder, findsNWidgets(1));
       });
       testWidgets('APIから取得した天候データを画像として表示', (tester) async {
-        _setUpScreenSize(tester);
+        _setUpScreen(tester);
 
         final assets = [
           (WeatherCondition.cloudy, Assets.images.cloudy.svg()),
@@ -171,7 +172,7 @@ void main() {
     });
     group('異常形', () {
       testWidgets('`UnknownException` のケース', (tester) async {
-        _setUpScreenSize(tester);
+        _setUpScreen(tester);
 
         final failureObj = Failure<model.WeatherInfo, _FailureValue>(
           (
@@ -215,7 +216,7 @@ void main() {
         expect(errorMessageFinder, findsOneWidget);
       });
       testWidgets('`RequestFailedException` のケース', (tester) async {
-        _setUpScreenSize(tester);
+        _setUpScreen(tester);
 
         final failureObj = Failure<model.WeatherInfo, _FailureValue>(
           (
