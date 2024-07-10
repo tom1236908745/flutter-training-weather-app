@@ -100,11 +100,11 @@ void main() {
 
         // 最高気温の表記
         final maxTemperatureTextFinder = find.text('16 ℃');
-        expect(maxTemperatureTextFinder, findsNWidgets(1));
+        expect(maxTemperatureTextFinder, findsOneWidget);
 
         // 最低気温の表記
         final minTemperatureTextFinder = find.text('7 ℃');
-        expect(minTemperatureTextFinder, findsNWidgets(1));
+        expect(minTemperatureTextFinder, findsOneWidget);
       });
       testWidgets('APIから取得した天候データを画像として表示', (tester) async {
         _setUpScreen(tester);
