@@ -40,13 +40,7 @@ void main() {
     ),
   );
 
-  provideDummy<
-      Result<
-          WeatherInfo,
-          ({
-            AppException exception,
-            StackTrace stackTrace
-          })>>(commonSuccessObject);
+  provideDummy<Result<WeatherInfo, _FailureValue>>(commonSuccessObject);
 
   tearDown(() {
     reset(mockWeatherRepository);
