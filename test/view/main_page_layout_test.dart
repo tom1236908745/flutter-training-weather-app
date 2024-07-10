@@ -156,7 +156,7 @@ void main() {
         }
       });
     });
-    group('異常形', () {
+    group('異常系', () {
       testWidgets('`UnknownException` のケース', (tester) async {
         _setUpScreen(tester);
 
