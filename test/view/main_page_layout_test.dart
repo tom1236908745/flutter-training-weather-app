@@ -106,53 +106,54 @@ void main() {
         final minTemperatureTextFinder = find.text('7 ℃');
         expect(minTemperatureTextFinder, findsOneWidget);
       });
-      testWidgets('APIから取得した天候データを画像として表示', (tester) async {
-        _setUpScreen(tester);
-
+      group('APIから取得した天候データを画像として表示', () {
         final assets = [
           (WeatherCondition.cloudy, Assets.images.cloudy.svg()),
           (WeatherCondition.sunny, Assets.images.sunny.svg()),
           (WeatherCondition.rainy, Assets.images.rainy.svg()),
         ];
 
-        for (final (weatherConditionName, imagePath) in assets) {
-          final successObject = Success<WeatherInfo, _FailureValue>(
-            WeatherInfo(
-              weatherCondition: weatherConditionName,
-              maxTemperature: 16,
-              minTemperature: 7,
-              date: DateTime.parse('2020-04-01T12:00:00+09:00'),
-            ),
-          );
-          final response = Future<Success<WeatherInfo, _FailureValue>>.value(
-            successObject,
-          );
+        for (final (weatherCondition, svg) in assets) {
+          testWidgets('$weatherCondition のときは $svg が表示される', (tester) async {
+            _setUpScreen(tester);
+            final successObject = Success<WeatherInfo, _FailureValue>(
+              WeatherInfo(
+                weatherCondition: weatherCondition,
+                maxTemperature: 16,
+                minTemperature: 7,
+                date: DateTime.parse('2020-04-01T12:00:00+09:00'),
+              ),
+            );
+            final response = Future<Success<WeatherInfo, _FailureValue>>.value(
+              successObject,
+            );
 
-          when(mockWeatherRepository.fetchWeather())
-              .thenAnswer((_) => response);
+            when(mockWeatherRepository.fetchWeather())
+                .thenAnswer((_) => response);
 
-          await tester.pumpWidget(
-            ProviderScope(
-              overrides: [
-                weatherRepositoryProvider
-                    .overrideWithValue(mockWeatherRepository),
-              ],
-              child: const MaterialApp(
-                home: Scaffold(
-                  body: MainPageLayout(),
+            await tester.pumpWidget(
+              ProviderScope(
+                overrides: [
+                  weatherRepositoryProvider
+                      .overrideWithValue(mockWeatherRepository),
+                ],
+                child: const MaterialApp(
+                  home: Scaffold(
+                    body: MainPageLayout(),
+                  ),
                 ),
               ),
-            ),
-          );
+            );
 
-          // `Reload` ボタンを押した際の挙動
-          final reloadTextFinder = find.text('Reload');
-          await tester.tap(reloadTextFinder);
-          await tester.pumpAndSettle();
+            // `Reload` ボタンを押した際の挙動
+            final reloadTextFinder = find.text('Reload');
+            await tester.tap(reloadTextFinder);
+            await tester.pumpAndSettle();
 
-          // 画像の表示
-          final svgPicFinder = find.svg(imagePath.bytesLoader);
-          expect(svgPicFinder, findsOneWidget);
+            // 画像の表示
+            final svgPicFinder = find.svg(svg.bytesLoader);
+            expect(svgPicFinder, findsOneWidget);
+          });
         }
       });
     });
