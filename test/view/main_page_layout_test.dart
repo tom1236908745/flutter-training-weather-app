@@ -50,11 +50,6 @@ void main() {
     group('正常系', () {
       testWidgets('初期画面', (tester) async {
         _setUpScreen(tester);
-        final response = Future<Success<WeatherInfo, _FailureValue>>.value(
-          commonSuccessObject,
-        );
-
-        when(mockWeatherRepository.fetchWeather()).thenAnswer((_) => response);
 
         await tester.pumpWidget(
           ProviderScope(
