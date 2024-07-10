@@ -48,7 +48,7 @@ void main() {
             StackTrace stackTrace
           })>>(commonSuccessObject);
 
-  setUp(() {
+  tearDown(() {
     reset(mockWeatherRepository);
   });
 
