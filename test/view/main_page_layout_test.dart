@@ -7,7 +7,7 @@ import 'package:flutter_training/gen/assets.gen.dart';
 import 'package:flutter_training/model/exception.dart';
 import 'package:flutter_training/model/repository/weather_repository.dart';
 import 'package:flutter_training/model/repository/weather_repository_provider.dart';
-import 'package:flutter_training/model/weather_info.dart' as model;
+import 'package:flutter_training/model/weather_info.dart';
 import 'package:flutter_training/utils/result.dart';
 import 'package:flutter_training/view/main_page_layout.dart';
 import 'package:flutter_training/view_model/extensions/failure_message.dart';
@@ -31,8 +31,8 @@ void _setUpScreen(WidgetTester tester) {
 @GenerateNiceMocks([MockSpec<WeatherRepository>()])
 void main() {
   final mockWeatherRepository = MockWeatherRepository();
-  final commonSuccessObject = Success<model.WeatherInfo, _FailureValue>(
-    model.WeatherInfo(
+  final commonSuccessObject = Success<WeatherInfo, _FailureValue>(
+    WeatherInfo(
       weatherCondition: WeatherCondition.cloudy,
       maxTemperature: 16,
       minTemperature: 7,
@@ -42,7 +42,7 @@ void main() {
 
   provideDummy<
       Result<
-          model.WeatherInfo,
+          WeatherInfo,
           ({
             AppException exception,
             StackTrace stackTrace
@@ -56,8 +56,7 @@ void main() {
     group('正常系', () {
       testWidgets('初期画面', (tester) async {
         _setUpScreen(tester);
-        final response =
-            Future<Success<model.WeatherInfo, _FailureValue>>.value(
+        final response = Future<Success<WeatherInfo, _FailureValue>>.value(
           commonSuccessObject,
         );
 
@@ -85,8 +84,7 @@ void main() {
       });
       testWidgets('温度データの表示', (tester) async {
         _setUpScreen(tester);
-        final response =
-            Future<Success<model.WeatherInfo, _FailureValue>>.value(
+        final response = Future<Success<WeatherInfo, _FailureValue>>.value(
           commonSuccessObject,
         );
 
@@ -129,16 +127,15 @@ void main() {
         ];
 
         for (final (weatherConditionName, imagePath) in assets) {
-          final successObject = Success<model.WeatherInfo, _FailureValue>(
-            model.WeatherInfo(
+          final successObject = Success<WeatherInfo, _FailureValue>(
+            WeatherInfo(
               weatherCondition: weatherConditionName,
               maxTemperature: 16,
               minTemperature: 7,
               date: DateTime.parse('2020-04-01T12:00:00+09:00'),
             ),
           );
-          final response =
-              Future<Success<model.WeatherInfo, _FailureValue>>.value(
+          final response = Future<Success<WeatherInfo, _FailureValue>>.value(
             successObject,
           );
 
@@ -174,7 +171,7 @@ void main() {
       testWidgets('`UnknownException` のケース', (tester) async {
         _setUpScreen(tester);
 
-        final failureObj = Failure<model.WeatherInfo, _FailureValue>(
+        final failureObj = Failure<WeatherInfo, _FailureValue>(
           (
             exception: UnknownException(),
             stackTrace: StackTrace.current,
@@ -182,7 +179,7 @@ void main() {
         );
 
         final response =
-            Future<Failure<model.WeatherInfo, _FailureValue>>.value(failureObj);
+            Future<Failure<WeatherInfo, _FailureValue>>.value(failureObj);
 
         when(mockWeatherRepository.fetchWeather()).thenAnswer((_) => response);
 
@@ -218,7 +215,7 @@ void main() {
       testWidgets('`RequestFailedException` のケース', (tester) async {
         _setUpScreen(tester);
 
-        final failureObj = Failure<model.WeatherInfo, _FailureValue>(
+        final failureObj = Failure<WeatherInfo, _FailureValue>(
           (
             exception: RequestFailedException(),
             stackTrace: StackTrace.current,
@@ -226,7 +223,7 @@ void main() {
         );
 
         final response =
-            Future<Failure<model.WeatherInfo, _FailureValue>>.value(failureObj);
+            Future<Failure<WeatherInfo, _FailureValue>>.value(failureObj);
 
         when(mockWeatherRepository.fetchWeather()).thenAnswer((_) => response);
 
