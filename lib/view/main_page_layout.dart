@@ -8,6 +8,7 @@ import 'package:flutter_training/view/components/dialog/error_message_dialog.dar
 import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
+/// 大枠のウィジェット
 class MainPageLayout extends ConsumerStatefulWidget {
   const MainPageLayout({super.key});
 
@@ -15,7 +16,6 @@ class MainPageLayout extends ConsumerStatefulWidget {
   MainPageLayoutState createState() => MainPageLayoutState();
 }
 
-/// 大枠のウィジェット
 class MainPageLayoutState extends ConsumerState<MainPageLayout> {
   bool _isLoading = false;
   @override
