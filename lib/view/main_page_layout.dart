@@ -21,6 +21,9 @@ class MainPageLayoutState extends ConsumerState<MainPageLayout> {
   @override
   Widget build(BuildContext context) {
     ref.listen(weatherInfoNotifierProvider, (pre, next) async {
+      if (!context.mounted) {
+        return;
+      }
       switch (next) {
         case AsyncLoading():
           setState(() {
@@ -30,9 +33,7 @@ class MainPageLayoutState extends ConsumerState<MainPageLayout> {
           setState(() {
             _isLoading = false;
           });
-          if (context.mounted) {
-            await showErrorDialog(context, error);
-          }
+          await showErrorDialog(context, error);
         default:
           setState(() {
             _isLoading = false;
