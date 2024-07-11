@@ -13,10 +13,10 @@ class MainPageLayout extends ConsumerStatefulWidget {
   const MainPageLayout({super.key});
 
   @override
-  MainPageLayoutState createState() => MainPageLayoutState();
+  ConsumerState<MainPageLayout> createState() => _MainPageLayoutState();
 }
 
-class MainPageLayoutState extends ConsumerState<MainPageLayout> {
+class _MainPageLayoutState extends ConsumerState<MainPageLayout> {
   bool _isLoading = false;
   @override
   Widget build(BuildContext context) {
