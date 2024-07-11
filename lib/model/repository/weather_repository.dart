@@ -1,4 +1,5 @@
 import 'dart:convert';
+import 'package:flutter/foundation.dart';
 import 'package:flutter_training/model/exception.dart';
 import 'package:flutter_training/model/request.dart';
 import 'package:flutter_training/model/weather_info.dart';
@@ -19,11 +20,13 @@ class WeatherRepository {
         area: 'tokyo',
         date: DateTime.parse('2020-04-01T12:00:00+09:00'),
       );
+      final response = await compute(
+        _weatherApi.syncFetchWeather,
+        jsonEncode(requestData.toJson()),
+      );
 
-      final weatherResponse =
-          _weatherApi.fetchWeather(jsonEncode(requestData.toJson()));
       final weatherInfoModel = WeatherInfo.fromJson(
-        jsonDecode(weatherResponse) as Map<String, dynamic>,
+        jsonDecode(response) as Map<String, dynamic>,
       );
       return Success(
         weatherInfoModel,

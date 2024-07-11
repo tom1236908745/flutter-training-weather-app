@@ -26,7 +26,7 @@ void main() {
       test('APIの取得が成功した場合', () async {
         const mockWeatherResponse =
             '''{"weather_condition":"cloudy","max_temperature":25,"min_temperature":7,"date":"2020-04-01T12:00:00+09:00"}''';
-        when(mockYumemiWeather.fetchWeather(any))
+        when(mockYumemiWeather.syncFetchWeather(any))
             .thenAnswer((_) => mockWeatherResponse);
         final weatherRepository =
             WeatherRepository(weatherApi: mockYumemiWeather);
@@ -46,7 +46,7 @@ void main() {
       test('レスポンスの型が期待していた型と異なっていた場合', () async {
         const mockWeatherResponse =
             '''{"weather_condition":"cloudy","max_temperature":25,"min_temperature":7,"dateTime":"2020-04-01T12:00:00+09:00"}''';
-        when(mockYumemiWeather.fetchWeather(any))
+        when(mockYumemiWeather.syncFetchWeather(any))
             .thenAnswer((_) => mockWeatherResponse);
         final weatherRepository =
             WeatherRepository(weatherApi: mockYumemiWeather);
@@ -61,7 +61,7 @@ void main() {
         );
       });
       test('APIから例外がスローされた場合', () async {
-        when(mockYumemiWeather.fetchWeather(any)).thenThrow(Exception());
+        when(mockYumemiWeather.syncFetchWeather(any)).thenThrow(Exception());
         final weatherRepository =
             WeatherRepository(weatherApi: mockYumemiWeather);
         final actual = await weatherRepository.fetchWeather();
@@ -75,7 +75,7 @@ void main() {
         );
       });
       test('APIから不明なエラーがスローされた場合', () async {
-        when(mockYumemiWeather.fetchWeather(any))
+        when(mockYumemiWeather.syncFetchWeather(any))
             .thenThrow(YumemiWeatherError.unknown);
         final weatherRepository =
             WeatherRepository(weatherApi: mockYumemiWeather);
@@ -90,7 +90,7 @@ void main() {
         );
       });
       test('APIからリクエスト時のエラーがスローされた場合', () async {
-        when(mockYumemiWeather.fetchWeather(any))
+        when(mockYumemiWeather.syncFetchWeather(any))
             .thenThrow(YumemiWeatherError.invalidParameter);
         final weatherRepository =
             WeatherRepository(weatherApi: mockYumemiWeather);

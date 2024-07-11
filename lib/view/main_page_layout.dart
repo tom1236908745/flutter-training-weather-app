@@ -9,32 +9,70 @@ import 'package:flutter_training/view_model/extensions/failure_message.dart';
 import 'package:flutter_training/view_model/weather_info_notifier.dart';
 
 /// 大枠のウィジェット
-class MainPageLayout extends StatelessWidget {
+class MainPageLayout extends ConsumerStatefulWidget {
   const MainPageLayout({super.key});
 
   @override
+  ConsumerState<MainPageLayout> createState() => _MainPageLayoutState();
+}
+
+class _MainPageLayoutState extends ConsumerState<MainPageLayout> {
+  bool _isLoading = false;
+  @override
   Widget build(BuildContext context) {
-    return Scaffold(
-      body: Center(
-        child: FractionallySizedBox(
-          widthFactor: 0.5,
-          child: Column(
-            children: <Widget>[
-              const Spacer(),
-              _CenterPart(),
-              Expanded(
-                child: Column(
-                  children: <Widget>[
-                    const SizedBox(
-                      height: 80,
-                    ),
-                    _TextButtons(),
-                  ],
-                ),
+    ref.listen(weatherInfoNotifierProvider, (pre, next) async {
+      if (!context.mounted) {
+        return;
+      }
+      switch (next) {
+        case AsyncLoading():
+          setState(() {
+            _isLoading = true;
+          });
+        case AsyncError(:final FailureMessage error):
+          setState(() {
+            _isLoading = false;
+          });
+          await showErrorDialog(context, error);
+        default:
+          setState(() {
+            _isLoading = false;
+          });
+      }
+    });
+    final mainPage = Center(
+      child: FractionallySizedBox(
+        widthFactor: 0.5,
+        child: Column(
+          children: <Widget>[
+            const Spacer(),
+            _CenterPart(),
+            Expanded(
+              child: Column(
+                children: <Widget>[
+                  const SizedBox(
+                    height: 80,
+                  ),
+                  _TextButtons(),
+                ],
               ),
-            ],
-          ),
+            ),
+          ],
         ),
+      ),
+    );
+    return Scaffold(
+      body: Stack(
+        children: [
+          mainPage,
+          if (_isLoading)
+            const ColoredBox(
+              color: Colors.black54,
+              child: Center(
+                child: CircularProgressIndicator(),
+              ),
+            ),
+        ],
       ),
     );
   }
@@ -127,16 +165,6 @@ class _TextButtons extends ConsumerWidget {
     BuildContext context,
     WidgetRef ref,
   ) {
-    ref.listen(weatherInfoNotifierProvider, (pre, next) async {
-      switch (next) {
-        case AsyncError(:final FailureMessage error):
-          if (context.mounted) {
-            await showErrorDialog(context, error);
-          }
-        default:
-          break;
-      }
-    });
     return Row(
       children: <Widget>[
         Expanded(

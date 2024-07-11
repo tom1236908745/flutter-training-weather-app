@@ -28,9 +28,8 @@ class WeatherInfoNotifier extends _$WeatherInfoNotifier {
   }
 
   Future<void> fetchWeather() async {
-    final result = await _weatherRepository.fetchWeather();
-
     state = const AsyncLoading();
+    final result = await _weatherRepository.fetchWeather();
 
     switch (result) {
       // APIの取得に成功した場合
